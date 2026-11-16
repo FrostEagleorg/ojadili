@@ -14,6 +14,7 @@ interface Bout {
   colour: string;
   stats: [Stat, Stat, Stat, Stat];
   verdict: string;
+  story: string;
 }
 
 const labels = ['Strength', 'Size', 'Wrestling', 'Stamina'];
@@ -25,18 +26,21 @@ const bouts: Bout[] = [
     ojadiliImg: '/images/ww/ww-bob.jpg', ojadiliAlt: 'Ojadili slams a wrestler into the ground, KRA-THOOM',
     stats: [10, 9, 3, 8],
     verdict: 'Bob is stronger. But he stopped to pick up a brick. Ojadili, by forfeit.',
+    story: 'Bob is strong. Very strong. But he walked into the ring, saw one red brick on the ground, and couldn’t leave it there. Then he wrote a note about who left it. Then another note. By the time he looked up, the drummers had gone home and Ojadili was eating his supper.',
   },
   {
     id: 'ben', them: 'Ben 10', pick: 'Ben 10', colour: '#2a7b78',
     ojadiliImg: '/images/ww/ww-ben.jpg', ojadiliAlt: 'Ojadili lifts a wrestler high above his head in front of the village',
     stats: [9, 10, 4, 3],
     verdict: 'Ben wins if he goes giant. Then the watch runs out…',
+    story: 'If Ben goes giant, Ojadili can’t even get his arms around him, so Ben takes the first round. But the watch always runs out, and Ojadili never does. Nne-nne says it depends on who’s still standing when the watch beeps.',
   },
   {
     id: 'hercules', them: 'Hercules', pick: 'Hercules', colour: '#8a7a5c',
     ojadiliImg: '/images/ww/ww-hercules.jpg', ojadiliAlt: 'Ojadili throws a wrestler across his hip as the crowd watches',
     stats: [9, 7, 9, 9],
     verdict: 'A draw. Then pounded yam together.',
+    story: 'Two wrestlers who have never lost, both with something bigger than themselves behind them. Nne-nne says they’d wrestle until the sun went down, nobody’s back would touch the ground, and they’d share a bowl of pounded yam afterwards like old friends.',
   },
   {
     id: 'gorilla', them: 'A gorilla', pick: 'Gorilla', colour: '#3a3a40',
@@ -45,6 +49,7 @@ const bouts: Bout[] = [
     ojadiliImg: '/images/ww/ww-gorilla.jpg', ojadiliAlt: 'Ojadili takes a heavy blow, KHUMP',
     stats: [10, 8, 1, 6],
     verdict: 'Ojadili. The gorilla walked off into the forest.',
+    story: 'The gorilla is stronger, but it has no idea what wrestling is. It would beat its chest, look at the crowd, sniff the drums, and wander off into the forest to find some fruit. Nne-nne gives it to Ojadili, because the gorilla never came back.',
   },
   {
     id: 'chi', them: 'His chi', pick: 'His chi', colour: '#6b5f86',
@@ -52,6 +57,7 @@ const bouts: Bout[] = [
     themImg: '/images/ww/ww-chi.jpg', themAlt: 'A small, thin, pale spirit smiling',
     stats: [null, null, null, null],
     verdict: 'You already know. Read Chapter 3.',
+    story: 'Every bit of strength Ojadili has, he shares with his chi. You can’t out-wrestle your own strength. Nne-nne says the strongest man in nine villages learned that the hard way, and if you don’t believe her, read Chapter 3.',
   },
 ];
 
@@ -105,10 +111,10 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
               <button class="btn pick-o" type="button" data-pick="Ojadili">Ojadili wins</button>
               <button class="btn pick-t" type="button" data-pick={b.pick}>{b.pick} wins</button>
             </div>
-            <p class="verdict" data-verdict>
-              <span class="you" data-you hidden></span>
-              <strong>Nne-nne:</strong> {b.verdict}
-            </p>
+            <div class="verdict" data-verdict>
+              <p class="v-head"><span class="you" data-you hidden></span><strong>Nne-nne:</strong> {b.verdict}</p>
+              <p class="v-story">{b.story}</p>
+            </div>
           </li>
         ))}
       </ol>
@@ -270,13 +276,12 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
   .pick-t { border-color: var(--them); color: var(--them); }
   .pick-t:hover { background: var(--them); color: var(--paper); }
   .verdict {
-    font-size: 1.2rem;
-    text-align: center;
     background: var(--nzu);
-    border-radius: 999px;
-    padding: 0.8rem 1.5rem;
-    margin: 0;
+    border-radius: 16px;
+    padding: 1.1rem 1.5rem 1.2rem;
   }
+  .v-head { font-size: 1.2rem; margin: 0 0 0.4rem; }
+  .v-story { margin: 0; color: var(--ink); font-style: italic; }
   .you { font-weight: 600; }
   .decided .verdict { animation: pop 420ms cubic-bezier(.2,.9,.3,1.3) both; }
   .decided.chose-o .ojadili, .decided.chose-t .them { outline: 5px solid var(--palm); outline-offset: -5px; }
@@ -300,6 +305,5 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
     .tape th { width: 5.5rem; font-size: 0.95rem; padding: 0.3rem 0.4rem; }
     .gallery { grid-template-columns: 1fr; }
     .big-q { font-size: 6rem; }
-    .verdict { border-radius: 16px; }
   }
 </style>
