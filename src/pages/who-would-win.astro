@@ -1,0 +1,156 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+
+const bouts = [
+  {
+    id: 'hulk',
+    them: 'Hulk',
+    facts: 'Hulk gets stronger the angrier he gets. He can lift a mountain and jump for miles.',
+    verdict:
+      'Hulk is stronger. Nobody argues with that. But in mgba you don’t win by smashing, you win by putting your opponent’s back on the ground, and in nine villages nobody ever did that to Ojadili. Angry wrestlers rush. Ojadili waits. Nne-nne says Ojadili, just, as long as Hulk agrees to wrestle and not smash.',
+  },
+  {
+    id: 'ben',
+    them: 'Ben 10',
+    facts: 'Ben’s watch turns him into aliens, including one as big as a building. But it times out.',
+    verdict:
+      'If Ben goes giant, Ojadili can’t even get his arms around him, so Ben wins that round. But the watch runs out, and Ojadili never does. Nne-nne says it depends on who’s still standing when the watch beeps.',
+  },
+  {
+    id: 'hercules',
+    them: 'Hercules',
+    facts: 'The strongest hero in the Greek stories. He wrestled a lion and held up the sky.',
+    verdict:
+      'Two wrestlers who never lose, both with a god behind them. Nne-nne says they’d wrestle until the sun went down, call it a draw, and eat pounded yam together afterwards.',
+  },
+  {
+    id: 'gorilla',
+    them: 'a silverback gorilla',
+    facts: 'About ten times stronger than a grown man, and much heavier.',
+    verdict:
+      'The gorilla is stronger, but it has no idea what wrestling is. It would beat its chest, look at the crowd, and walk off into the forest. Nne-nne gives it to Ojadili because the gorilla never showed up.',
+  },
+  {
+    id: 'chi',
+    them: 'his own chi',
+    facts: 'Small. Thin. Doesn’t look strong at all.',
+    verdict:
+      'You already know this one. Every bit of strength Ojadili has, he shares with his chi. You can’t out-wrestle your own strength. Read Chapter 3 if you don’t believe Nne-nne.',
+  },
+];
+---
+<Base title="Who would win?" seoTitle="Who Would Win: Ojadili vs Hulk, Ben 10 and Hercules | Ojadili" description="Could Ojadili, the Igbo wrestler whose back never touched the ground, beat Hulk, Ben 10 or Hercules? Pick your winner, then see what Nne-nne says.">
+  <section class="section">
+    <div class="wrap">
+      <h1>Who would win?</h1>
+      <p class="lede">
+        Ojadili’s back never touched the ground in nine villages. But could he beat Hulk? Pick your
+        winner for each fight, then see what Nne-nne thinks.
+      </p>
+
+      <ol class="bouts">
+        {bouts.map((b) => (
+          <li class="bout" data-bout>
+            <h2 class="bill">
+              <span>Ojadili</span>
+              <span class="vs">vs</span>
+              <span>{b.them}</span>
+            </h2>
+            <div class="body">
+              <p class="facts">{b.facts}</p>
+              <p class="ask" data-ask hidden>Who wins?</p>
+              <div class="picks" data-picks hidden>
+                <button class="btn" type="button" data-pick="Ojadili">Ojadili</button>
+                <button class="btn" type="button" data-pick={b.them.replace(/^a /, '').replace(/^his own /, 'His ')}>
+                  {b.them.replace(/^a /, '').replace(/^his own /, 'His ')}
+                </button>
+              </div>
+              <div class="verdict" data-verdict>
+                <p class="you" data-you hidden></p>
+                <p><strong>Nne-nne says:</strong> {b.verdict}</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section yours">
+    <div class="wrap">
+      <div class="prose">
+        <h2>Your turn</h2>
+        <p>
+          Who else should Ojadili wrestle? Argue about it at dinner, then send us your matchup and
+          who you think wins. The best ones go on this page.
+        </p>
+        <a class="btn btn--solid" href={`mailto:${SITE.email}?subject=Who%20would%20win%3F%20Ojadili%20vs%20`}>Send your matchup</a>
+      </div>
+      <p class="small">
+        Just for fun. Hulk belongs to Marvel and Ben 10 to Cartoon Network. Neither is in the Ojadili
+        book, and they haven’t endorsed it.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-bout]').forEach((bout) => {
+    const picks = bout.querySelector<HTMLElement>('[data-picks]');
+    const ask = bout.querySelector<HTMLElement>('[data-ask]');
+    const verdict = bout.querySelector<HTMLElement>('[data-verdict]');
+    const you = bout.querySelector<HTMLElement>('[data-you]');
+    if (!picks || !ask || !verdict || !you) return;
+    picks.hidden = false;
+    ask.hidden = false;
+    verdict.hidden = true;
+    picks.querySelectorAll<HTMLButtonElement>('[data-pick]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        you.textContent = `You picked ${btn.dataset.pick}.`;
+        you.hidden = false;
+        picks.hidden = true;
+        ask.hidden = true;
+        verdict.hidden = false;
+        verdict.classList.add('shown');
+      });
+    });
+  });
+</script>
+
+<style>
+  .lede { font-size: 1.2em; max-width: var(--measure); }
+  .bouts { list-style: none; margin: 3rem 0 0; padding: 0; display: grid; gap: 0; }
+  .bout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem clamp(2rem, 5vw, 4rem);
+    padding: 2rem 0;
+    border-top: 2px solid var(--ink);
+  }
+  .bill {
+    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+    line-height: 0.9;
+    margin: 0;
+  }
+  .bill span { display: block; }
+  .bill .vs {
+    font-family: var(--text);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 0.4em;
+    color: var(--ufie);
+    margin: 0.2em 0;
+  }
+  .bout:last-child .bill span:last-child { color: var(--ufie); }
+  .facts { color: var(--muted); }
+  .ask { font-family: var(--display); font-weight: 800; font-size: 1.6rem; margin-bottom: 0.6rem; }
+  .picks { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .you { font-weight: 600; margin-bottom: 0.5rem; }
+  .verdict.shown { animation: rise 450ms cubic-bezier(.2,.7,.2,1) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .yours { background: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
+  .yours .btn { margin-top: 0.5rem; }
+  .small { font-size: 0.875rem; color: var(--muted); margin-top: 3rem; max-width: var(--measure); }
+  @media (max-width: 760px) { .bout { grid-template-columns: 1fr; } }
+</style>

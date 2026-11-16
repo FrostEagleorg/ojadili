@@ -43,6 +43,8 @@ body {
   font-variant-numeric: oldstyle-nums;
 }
 
+[hidden] { display: none !important; }
+
 img { max-width: 100%; height: auto; display: block; }
 
 a { color: var(--ufie); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
