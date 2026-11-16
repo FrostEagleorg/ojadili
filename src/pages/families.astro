@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import BuyButtons from '../components/BuyButtons.astro';
 import { SITE } from '../config';
 ---
-<Base title="For families and schools" description="A free Ojadili activity page, ideas for reading the book together, and bulk orders for schools and community groups.">
+<Base title="For families and schools" description="Reading Ojadili together, and orders for schools, libraries and community groups.">
   <section class="section">
     <div class="wrap">
       <h1>For families and schools</h1>
@@ -11,7 +11,7 @@ import { SITE } from '../config';
         <div class="prose">
           <h2>Reading it together</h2>
           <p>
-            I wrote Ojadili for Igbo kids growing up outside Nigeria, and for the parents and
+            I wrote Ojadili for Igbo kids aged 8 to 12 growing up outside Nigeria, and for the parents and
             grandparents who want to pass the old stories on. You don’t need to speak Igbo to follow
             it, and there’s a list of the Igbo words and what they mean on <a href="/story">the story page</a>.
           </p>
@@ -26,11 +26,6 @@ import { SITE } from '../config';
           </p>
         </div>
 
-        <aside class="download">
-          <h2>Free activity page</h2>
-          <p>Print it for a classroom, a Saturday school or a quiet afternoon at home.</p>
-          <a class="btn btn--solid" href="/downloads/ojadili-activity-page.pdf" download>Download the activity page (PDF)</a>
-        </aside>
       </div>
     </div>
   </section>
@@ -61,6 +56,8 @@ import { SITE } from '../config';
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  }
+  .grid:has(> :only-child) { grid-template-columns: minmax(0, 1fr);
     gap: clamp(2rem, 6vw, 5rem);
     margin-top: 2rem;
   }

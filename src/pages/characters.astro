@@ -5,24 +5,24 @@ const people = [
   {
     name: 'Ojadili',
     img: '/images/ojadili.jpg',
-    alt: 'Ojadili in his wrestling stance, white chalk under his eyes',
+    alt: 'Ojadili lifting an opponent onto his shoulders, white chalk under his eyes',
     text: [
-      'The greatest wrestler Ụmụagụ has ever known. His back has never touched the ground, and he wears white chalk under his eyes when he fights.',
+      'The greatest wrestler Ụmụagụ has ever known. In nine villages his back has never touched the ground, and he wears white chalk under his eyes when he fights.',
       'He is a palm-wine tapper’s son. After his father fell from a palm tree, he made a promise to his chi, and he has been fighting ever since.',
     ],
   },
   {
     name: 'Chidi',
     img: '/images/chidi.jpg',
-    alt: 'Chidi, a twelve-year-old boy in Sydney',
+    alt: 'Chidi sitting on the floor hugging his knees, listening',
     text: [
-      'Twelve years old, lives in Sydney, plays football. He didn’t ask for a story about a wrestler, but his Nne-nne is telling it anyway.',
+      'Twelve years old, lives in Sydney, plays football. At night he sits by a candle and listens while his Nne-nne tells him the story of Ojadili.',
     ],
   },
   {
     name: 'Nne-nne',
     img: '/images/nne-nne.jpg',
-    alt: 'Chidi’s grandmother, Nne-nne, telling the story',
+    alt: 'Nne-nne in a headwrap, raising her hand as she tells the story',
     text: [
       'Chidi’s grandmother, and the voice of the book. Every time the story moves to Ụmụagụ, it’s because she’s taking him there.',
     ],
@@ -36,7 +36,7 @@ const people = [
       <div class="people">
         {people.map((p, i) => (
           <article class:list={['person', { flip: i % 2 === 1 }]}>
-            <figure class="art"><img src={p.img} alt={p.alt} width="1073" height="1600" loading="lazy" /></figure>
+            <figure class="art"><img src={p.img} alt={p.alt} loading="lazy" /></figure>
             <div class="prose">
               <h2>{p.name}</h2>
               {p.text.map((t) => <p>{t}</p>)}
@@ -61,12 +61,10 @@ const people = [
       <div class="prose">
         <h2>Ụmụagụ</h2>
         <p>
-          Ojadili’s village, where the wrestling ground fills up whenever he fights. The book opens
-          with a map of it, so readers can follow him from home all the way to the edge of the
-          spirit world.
+          Ojadili’s home village, and where his story starts. From here he goes through seven
+          forests and across fourteen rivers to reach the land of spirits.
         </p>
       </div>
-      <figure class="art map"><img src="/images/map-umuagu.jpg" alt="A map of the village of Ụmụagụ" width="1600" height="1100" loading="lazy" /></figure>
     </div>
   </section>
 </Base>
@@ -89,7 +87,7 @@ const people = [
     gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
   }
-  .map { margin: 0; }
+  .place-grid:has(> :only-child) { grid-template-columns: 1fr; }
   @media (max-width: 760px) {
     .person, .place-grid { grid-template-columns: 1fr; }
     .person.flip figure { order: 0; }
