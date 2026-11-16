@@ -21,10 +21,10 @@ const ojadili: [Stat, Stat, Stat, Stat] = [8, 6, 10, 9];
 
 const bouts: Bout[] = [
   {
-    id: 'hulk', them: 'Hulk', pick: 'Hulk', colour: '#3f6b3a',
+    id: 'bob', them: 'Mildly Agitated Bob', pick: 'Bob', colour: '#7a6a4f',
     ojadiliImg: '/images/ww/ww-hulk.jpg', ojadiliAlt: 'Ojadili slams a wrestler into the ground, KRA-THOOM',
-    stats: [10, 9, 3, 8],
-    verdict: 'Hulk is stronger. But wrestling isn’t smashing. Ojadili, just.',
+    stats: [3, 5, 1, 2],
+    verdict: 'Ojadili, by forfeit. Bob is still looking for the last brick.',
   },
   {
     id: 'ben', them: 'Ben 10', pick: 'Ben 10', colour: '#2a7b78',
@@ -56,7 +56,7 @@ const bouts: Bout[] = [
 const pct = (v: Stat) => (v === null ? 100 : v * 10);
 const show = (v: Stat) => (v === null ? '?' : String(v));
 ---
-<Base title="Who would win?" seoTitle="Who Would Win: Ojadili vs Hulk, Ben 10 and Hercules | Ojadili" description="Could Ojadili, the Igbo wrestler whose back never touched the ground, beat Hulk, Ben 10 or Hercules? Compare the stats, pick your winner, then see what Nne-nne says.">
+<Base title="Who would win?" seoTitle="Who Would Win? Ojadili vs Mildly Agitated Bob, Ben 10 and Hercules | Ojadili" description="Could Ojadili, the Igbo wrestler whose back never touched the ground, beat Mildly Agitated Bob, Ben 10 or Hercules? Compare the stats, pick your winner, then see what Nne-nne says.">
   <section class="section">
     <div class="wrap">
       <h1>Who would win?</h1>
@@ -98,6 +98,7 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
               </tbody>
             </table>
 
+            <p class="poll">Ojadili vs {b.them}. Who wins?</p>
             <div class="picks" data-picks hidden>
               <button class="btn pick-o" type="button" data-pick="Ojadili">Ojadili wins</button>
               <button class="btn pick-t" type="button" data-pick={b.pick}>{b.pick} wins</button>
@@ -139,8 +140,8 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
     </div>
     <div class="wrap">
       <p class="small">
-        Just for fun. Hulk belongs to Marvel and Ben 10 to Cartoon Network. Neither is in the Ojadili
-        book, and they haven’t endorsed it.
+        Just for fun. Ben 10 belongs to Cartoon Network. He isn’t in the Ojadili book and hasn’t
+        endorsed it.
       </p>
     </div>
   </section>
@@ -256,6 +257,8 @@ const show = (v: Stat) => (v === null ? '?' : String(v));
     text-align: center;
   }
 
+  .poll { font-family: var(--display); font-weight: 800; font-size: 1.5rem; text-align: center; margin: 0 0 0.6rem; }
+  .decided .poll { display: none; }
   .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
   .picks .btn { width: 100%; }
   .pick-o { border-color: var(--ufie); color: var(--ufie); }
