@@ -2,91 +2,142 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config';
 
-const bouts = [
+type Stat = number | null; // 0–10, null = nobody knows
+interface Bout {
+  id: string;
+  them: string;
+  pick: string;
+  ojadiliImg: string;
+  ojadiliAlt: string;
+  themImg?: string;
+  themAlt?: string;
+  colour: string;
+  stats: [Stat, Stat, Stat, Stat];
+  verdict: string;
+}
+
+const labels = ['Strength', 'Size', 'Wrestling', 'Stamina'];
+const ojadili: [Stat, Stat, Stat, Stat] = [8, 6, 10, 9];
+
+const bouts: Bout[] = [
   {
-    id: 'hulk',
-    them: 'Hulk',
-    facts: 'Hulk gets stronger the angrier he gets. He can lift a mountain and jump for miles.',
-    verdict:
-      'Hulk is stronger. Nobody argues with that. But in mgba you don’t win by smashing, you win by putting your opponent’s back on the ground, and in nine villages nobody ever did that to Ojadili. Angry wrestlers rush. Ojadili waits. Nne-nne says Ojadili, just, as long as Hulk agrees to wrestle and not smash.',
+    id: 'hulk', them: 'Hulk', pick: 'Hulk', colour: '#3f6b3a',
+    ojadiliImg: '/images/ww/ww-hulk.jpg', ojadiliAlt: 'Ojadili slams a wrestler into the ground, KRA-THOOM',
+    stats: [10, 9, 3, 8],
+    verdict: 'Hulk is stronger. But wrestling isn’t smashing. Ojadili, just.',
   },
   {
-    id: 'ben',
-    them: 'Ben 10',
-    facts: 'Ben’s watch turns him into aliens, including one as big as a building. But it times out.',
-    verdict:
-      'If Ben goes giant, Ojadili can’t even get his arms around him, so Ben wins that round. But the watch runs out, and Ojadili never does. Nne-nne says it depends on who’s still standing when the watch beeps.',
+    id: 'ben', them: 'Ben 10', pick: 'Ben 10', colour: '#2a7b78',
+    ojadiliImg: '/images/ww/ww-ben.jpg', ojadiliAlt: 'Ojadili lifts a wrestler high above his head in front of the village',
+    stats: [9, 10, 4, 3],
+    verdict: 'Ben wins if he goes giant. Then the watch runs out…',
   },
   {
-    id: 'hercules',
-    them: 'Hercules',
-    facts: 'The strongest hero in the Greek stories. He wrestled a lion and held up the sky.',
-    verdict:
-      'Two wrestlers who never lose, both with a god behind them. Nne-nne says they’d wrestle until the sun went down, call it a draw, and eat pounded yam together afterwards.',
+    id: 'hercules', them: 'Hercules', pick: 'Hercules', colour: '#8a7a5c',
+    ojadiliImg: '/images/ww/ww-hercules.jpg', ojadiliAlt: 'Ojadili throws a wrestler across his hip as the crowd watches',
+    stats: [9, 7, 9, 9],
+    verdict: 'A draw. Then pounded yam together.',
   },
   {
-    id: 'gorilla',
-    them: 'a silverback gorilla',
-    facts: 'About ten times stronger than a grown man, and much heavier.',
-    verdict:
-      'The gorilla is stronger, but it has no idea what wrestling is. It would beat its chest, look at the crowd, and walk off into the forest. Nne-nne gives it to Ojadili because the gorilla never showed up.',
+    id: 'gorilla', them: 'A gorilla', pick: 'Gorilla', colour: '#3a3a40',
+    ojadiliImg: '/images/ww/ww-gorilla.jpg', ojadiliAlt: 'Ojadili takes a heavy blow, KHUMP',
+    stats: [10, 8, 1, 6],
+    verdict: 'Ojadili. The gorilla walked off into the forest.',
   },
   {
-    id: 'chi',
-    them: 'his own chi',
-    facts: 'Small. Thin. Doesn’t look strong at all.',
-    verdict:
-      'You already know this one. Every bit of strength Ojadili has, he shares with his chi. You can’t out-wrestle your own strength. Read Chapter 3 if you don’t believe Nne-nne.',
+    id: 'chi', them: 'His chi', pick: 'His chi', colour: '#6b5f86',
+    ojadiliImg: '/images/ww/ww-chi-ojadili.jpg', ojadiliAlt: 'Ojadili reaches for a small, thin spirit: “Come, small one.”',
+    themImg: '/images/ww/ww-chi.jpg', themAlt: 'A small, thin, pale spirit smiling',
+    stats: [null, null, null, null],
+    verdict: 'You already know. Read Chapter 3.',
   },
 ];
+
+const pct = (v: Stat) => (v === null ? 100 : v * 10);
+const show = (v: Stat) => (v === null ? '?' : String(v));
 ---
-<Base title="Who would win?" seoTitle="Who Would Win: Ojadili vs Hulk, Ben 10 and Hercules | Ojadili" description="Could Ojadili, the Igbo wrestler whose back never touched the ground, beat Hulk, Ben 10 or Hercules? Pick your winner, then see what Nne-nne says.">
+<Base title="Who would win?" seoTitle="Who Would Win: Ojadili vs Hulk, Ben 10 and Hercules | Ojadili" description="Could Ojadili, the Igbo wrestler whose back never touched the ground, beat Hulk, Ben 10 or Hercules? Compare the stats, pick your winner, then see what Nne-nne says.">
   <section class="section">
     <div class="wrap">
       <h1>Who would win?</h1>
-      <p class="lede">
-        Ojadili’s back never touched the ground in nine villages. But could he beat Hulk? Pick your
-        winner for each fight, then see what Nne-nne thinks.
-      </p>
+      <p class="lede">Check the stats. Pick your winner. See what Nne-nne says.</p>
 
       <ol class="bouts">
         {bouts.map((b) => (
-          <li class="bout" data-bout>
-            <h2 class="bill">
-              <span>Ojadili</span>
-              <span class="vs">vs</span>
-              <span>{b.them}</span>
-            </h2>
-            <div class="body">
-              <p class="facts">{b.facts}</p>
-              <p class="ask" data-ask hidden>Who wins?</p>
-              <div class="picks" data-picks hidden>
-                <button class="btn" type="button" data-pick="Ojadili">Ojadili</button>
-                <button class="btn" type="button" data-pick={b.them.replace(/^a /, '').replace(/^his own /, 'His ')}>
-                  {b.them.replace(/^a /, '').replace(/^his own /, 'His ')}
-                </button>
-              </div>
-              <div class="verdict" data-verdict>
-                <p class="you" data-you hidden></p>
-                <p><strong>Nne-nne says:</strong> {b.verdict}</p>
-              </div>
+          <li class="bout" data-bout style={`--them:${b.colour}`}>
+            <div class="poster">
+              <figure class="corner ojadili">
+                <img src={b.ojadiliImg} alt={b.ojadiliAlt} loading="lazy" />
+                <figcaption>Ojadili</figcaption>
+              </figure>
+              <span class="vs" aria-hidden="true">vs</span>
+              <figure class:list={['corner', 'them', { blank: !b.themImg }]}>
+                {b.themImg
+                  ? <img src={b.themImg} alt={b.themAlt} loading="lazy" />
+                  : <span class="mystery" aria-hidden="true">?</span>}
+                <figcaption>{b.them}</figcaption>
+              </figure>
             </div>
+
+            <table class="tape">
+              <caption class="sr">Ojadili vs {b.them}, out of 10</caption>
+              <tbody>
+                {labels.map((label, i) => (
+                  <tr>
+                    <td class="side left">
+                      <span class="num">{show(ojadili[i])}</span>
+                      <span class="bar"><span style={`width:${pct(ojadili[i])}%`}></span></span>
+                    </td>
+                    <th scope="row">{label}</th>
+                    <td class="side right">
+                      <span class:list={['bar', { unknown: b.stats[i] === null }]}><span style={`width:${pct(b.stats[i])}%`}></span></span>
+                      <span class="num">{show(b.stats[i])}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div class="picks" data-picks hidden>
+              <button class="btn pick-o" type="button" data-pick="Ojadili">Ojadili wins</button>
+              <button class="btn pick-t" type="button" data-pick={b.pick}>{b.pick} wins</button>
+            </div>
+            <p class="verdict" data-verdict>
+              <span class="you" data-you hidden></span>
+              <strong>Nne-nne:</strong> {b.verdict}
+            </p>
           </li>
         ))}
       </ol>
     </div>
   </section>
 
-  <section class="section yours">
+  <section class="section real">
     <div class="wrap">
-      <div class="prose">
-        <h2>Your turn</h2>
-        <p>
-          Who else should Ojadili wrestle? Argue about it at dinner, then send us your matchup and
-          who you think wins. The best ones go on this page.
-        </p>
-        <a class="btn btn--solid" href={`mailto:${SITE.email}?subject=Who%20would%20win%3F%20Ojadili%20vs%20`}>Send your matchup</a>
+      <h2>Fights from the book</h2>
+      <div class="gallery">
+        <figure>
+          <img src="/images/ww/fight-python.jpg" alt="Ojadili wrestles a giant masked river python in the water, SPLOOSH" loading="lazy" />
+          <figcaption>vs Eke Mmiri, the River Spirit</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/ww/fight-spirit.jpg" alt="Ojadili throws a spirit with many faces to the ground, KRAAASH" loading="lazy" />
+          <figcaption>vs a spirit with many faces, in Ala Mmụọ</figcaption>
+        </figure>
       </div>
+    </div>
+  </section>
+
+  <section class="section yours">
+    <div class="wrap yours-grid">
+      <span class="big-q" aria-hidden="true">?</span>
+      <div class="prose">
+        <h2>Draw your own fight</h2>
+        <p>Draw Ojadili vs anyone you like. Ask a grown-up to send it in, and the best ones go on this page.</p>
+        <a class="btn btn--solid" href={`mailto:${SITE.email}?subject=My%20Ojadili%20fight%20drawing`}>Send your drawing</a>
+      </div>
+    </div>
+    <div class="wrap">
       <p class="small">
         Just for fun. Hulk belongs to Marvel and Ben 10 to Cartoon Network. Neither is in the Ojadili
         book, and they haven’t endorsed it.
@@ -98,59 +149,150 @@ const bouts = [
 <script>
   document.querySelectorAll<HTMLElement>('[data-bout]').forEach((bout) => {
     const picks = bout.querySelector<HTMLElement>('[data-picks]');
-    const ask = bout.querySelector<HTMLElement>('[data-ask]');
     const verdict = bout.querySelector<HTMLElement>('[data-verdict]');
     const you = bout.querySelector<HTMLElement>('[data-you]');
-    if (!picks || !ask || !verdict || !you) return;
+    if (!picks || !verdict || !you) return;
     picks.hidden = false;
-    ask.hidden = false;
     verdict.hidden = true;
     picks.querySelectorAll<HTMLButtonElement>('[data-pick]').forEach((btn) => {
       btn.addEventListener('click', () => {
-        you.textContent = `You picked ${btn.dataset.pick}.`;
+        you.textContent = `You said ${btn.dataset.pick}. `;
         you.hidden = false;
         picks.hidden = true;
-        ask.hidden = true;
         verdict.hidden = false;
-        verdict.classList.add('shown');
+        bout.classList.add('decided', btn.dataset.pick === 'Ojadili' ? 'chose-o' : 'chose-t');
       });
     });
   });
 </script>
 
 <style>
-  .lede { font-size: 1.2em; max-width: var(--measure); }
-  .bouts { list-style: none; margin: 3rem 0 0; padding: 0; display: grid; gap: 0; }
-  .bout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1rem clamp(2rem, 5vw, 4rem);
-    padding: 2rem 0;
-    border-top: 2px solid var(--ink);
+  .lede { font-size: 1.25em; }
+  .bouts { list-style: none; margin: 2.5rem 0 0; padding: 0; display: grid; gap: clamp(3rem, 7vw, 5rem); }
+  .bout { max-width: 46rem; margin: 0 auto; width: 100%; }
+
+  /* Fight poster */
+  .poster { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+  .corner {
+    position: relative;
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--night);
   }
-  .bill {
-    font-size: clamp(2.5rem, 5.5vw, 4.25rem);
-    line-height: 0.9;
+  .corner img { width: 100%; height: 100%; object-fit: cover; }
+  .corner figcaption {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 2.5rem 0.9rem 0.7rem;
+    background: linear-gradient(transparent, rgba(10, 12, 28, 0.85));
+    color: var(--nzu);
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 4.5vw, 2.75rem);
+    line-height: 0.95;
+  }
+  .them { text-align: right; }
+  .them.blank { background: var(--them); display: grid; place-items: center; }
+  .them.blank figcaption { background: none; }
+  .mystery {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(7rem, 20vw, 13rem);
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.2);
+    margin-top: -2rem;
+  }
+  .vs {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    color: var(--paper);
+    background: var(--ufie);
+    border-radius: 999px;
+    width: 3em;
+    height: 3em;
+    display: grid;
+    place-items: center;
+    margin: 0 -1.5em;
+    z-index: 1;
+    border: 4px solid var(--paper);
+  }
+
+  /* Tale of the tape */
+  .tape { width: 100%; border-collapse: collapse; margin: 1.25rem 0 1rem; }
+  .tape th {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 0.3rem 0.75rem;
+    width: 7rem;
+    white-space: nowrap;
+  }
+  .side { width: 50%; white-space: nowrap; }
+  .side > * { vertical-align: middle; }
+  .side.left { text-align: right; }
+  .bar {
+    display: inline-flex;
+    width: calc(100% - 2.2rem);
+    height: 0.9rem;
+    background: var(--nzu);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .left .bar { justify-content: flex-end; }
+  .bar > span { display: block; height: 100%; border-radius: 999px; }
+  .left .bar > span { background: var(--ufie); }
+  .right .bar > span { background: var(--them); }
+  .bar.unknown > span { background: repeating-linear-gradient(-45deg, var(--them) 0 6px, transparent 6px 12px); }
+  .num {
+    display: inline-block;
+    width: 2rem;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .picks .btn { width: 100%; }
+  .pick-o { border-color: var(--ufie); color: var(--ufie); }
+  .pick-o:hover { background: var(--ufie); color: var(--paper); }
+  .pick-t { border-color: var(--them); color: var(--them); }
+  .pick-t:hover { background: var(--them); color: var(--paper); }
+  .verdict {
+    font-size: 1.2rem;
+    text-align: center;
+    background: var(--nzu);
+    border-radius: 999px;
+    padding: 0.8rem 1.5rem;
     margin: 0;
   }
-  .bill span { display: block; }
-  .bill .vs {
-    font-family: var(--text);
-    font-style: italic;
-    font-weight: 500;
-    font-size: 0.4em;
-    color: var(--ufie);
-    margin: 0.2em 0;
-  }
-  .bout:last-child .bill span:last-child { color: var(--ufie); }
-  .facts { color: var(--muted); }
-  .ask { font-family: var(--display); font-weight: 800; font-size: 1.6rem; margin-bottom: 0.6rem; }
-  .picks { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .you { font-weight: 600; margin-bottom: 0.5rem; }
-  .verdict.shown { animation: rise 450ms cubic-bezier(.2,.7,.2,1) both; }
-  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .you { font-weight: 600; }
+  .decided .verdict { animation: pop 420ms cubic-bezier(.2,.9,.3,1.3) both; }
+  .decided.chose-o .ojadili, .decided.chose-t .them { outline: 5px solid var(--palm); outline-offset: -5px; }
+  @keyframes pop { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: none; } }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  .real { background: var(--night); color: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; margin-top: clamp(3rem, 7vw, 5rem); }
+  .gallery { display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; align-items: start; }
+  .gallery figure { margin: 0; }
+  .gallery img { border-radius: 6px; width: 100%; }
+  .gallery figcaption { margin-top: 0.5rem; color: #c9cad9; font-style: italic; }
+
   .yours { background: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
-  .yours .btn { margin-top: 0.5rem; }
-  .small { font-size: 0.875rem; color: var(--muted); margin-top: 3rem; max-width: var(--measure); }
-  @media (max-width: 760px) { .bout { grid-template-columns: 1fr; } }
+  .yours-grid { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: center; }
+  .big-q { font-family: var(--display); font-weight: 900; font-size: 10rem; line-height: 0.8; color: var(--ufie); }
+  .yours .btn { margin-top: 0.25rem; }
+  .small { font-size: 0.85rem; color: var(--muted); margin-top: 2.5rem; max-width: var(--measure); }
+
+  @media (max-width: 600px) {
+    .tape th { width: 5.5rem; font-size: 0.95rem; padding: 0.3rem 0.4rem; }
+    .gallery { grid-template-columns: 1fr; }
+    .big-q { font-size: 6rem; }
+    .verdict { border-radius: 16px; }
+  }
 </style>
