@@ -2,56 +2,84 @@
 import BuyButtons from './BuyButtons.astro';
 import { BOOK } from '../config';
 
-// Hotspot positions are percentages of the map image (x from left, y from top).
+// Positions are percentages of the map image (x from left, y from top).
+// Listed in journey order: from home, up the red path, to the gates of Ala Mmụọ.
 const places = [
   {
-    id: 'ala-mmuo', name: 'Ala Mmụọ', en: 'The land of spirits', x: 49.5, y: 18.5,
-    text: 'Past the last river are the carved gates of the spirit world. Ojadili goes in looking for one more fight, and the spirits are waiting.',
-    img: '/images/ww/fight-spirit.jpg', alt: 'Ojadili throws a spirit with many faces, KRAAASH',
-    link: { href: '/who-would-win', label: 'See who he fights' },
-  },
-  {
-    id: 'river', name: 'The fourteenth river', en: 'Where Eke Mmiri lives', x: 50.5, y: 29.5,
-    text: 'Fourteen rivers stand between Ụmụagụ and the spirit world. In the last one lives Eke Mmiri, the River Spirit, and Ojadili has to wrestle it.',
-    img: '/images/ww/fight-python.jpg', alt: 'Ojadili wrestles the masked river python, SPLOOSH',
-    link: { href: '/story#words', label: 'Who is Eke Mmiri?' },
-  },
-  {
-    id: 'last-forest', name: 'The last forest', en: 'Grey, and full of ghosts', x: 60, y: 33.5,
-    text: 'The last of the seven forests is grey and quiet, and ghosts drift between the trees.',
-    link: { href: '/story#words', label: 'Igbo words for spirits' },
-  },
-  {
-    id: 'seven-forests', name: 'Seven forests', en: 'The road out of Ụmụagụ', x: 50, y: 46.5,
-    text: 'When nobody at home can throw him, Ojadili goes looking for someone who can. The red path runs through seven forests on the way.',
-    link: { href: '/characters', label: 'Meet Ojadili' },
-  },
-  {
-    id: 'villages', name: 'Nine villages', en: 'Nobody here could throw him', x: 22.5, y: 71,
-    text: 'In nine villages, Ojadili’s back has never touched the ground. Every wrestler who tried ended up looking at the sky.',
-    img: '/images/ww/ww-hercules.jpg', alt: 'Ojadili throws a wrestler across his hip as the crowd watches',
-    link: { href: '/who-would-win', label: 'Who would win?' },
-  },
-  {
-    id: 'umuagu', name: 'Ụmụagụ', en: 'Ojadili’s village', x: 51, y: 84,
+    id: 'umuagu', name: 'Ụmụagụ', en: 'Ojadili’s village', x: 51, y: 84, zoom: 2.6,
     text: 'Home. The wrestling ground in the middle of the village is where Ojadili became the wrestler whose back never touched the ground, and where the story begins.',
     img: '/images/ww/ww-ben.jpg', alt: 'Ojadili lifts a wrestler above his head in Ụmụagụ',
     link: { href: '/characters', label: 'Meet the people of Ụmụagụ' },
   },
   {
-    id: 'amaeke', name: 'Amaeke', en: 'Across the river', x: 19, y: 87.5,
+    id: 'amaeke', name: 'Amaeke', en: 'Across the river', x: 19, y: 87.5, zoom: 2.8,
     text: 'Ụmụagụ’s neighbour, on the other side of the river.',
-    link: { href: '/characters', label: 'See the full map' },
+    link: { href: '/characters', label: 'Meet the characters' },
   },
   {
-    id: 'palm-grove', name: 'The palm grove', en: 'Palm wine and palm trees', x: 80, y: 85.5,
+    id: 'palm-grove', name: 'The palm grove', en: 'Palm wine and palm trees', x: 80, y: 85.5, zoom: 2.8,
     text: 'Ojadili’s father was a palm-wine tapper. In Chapter 2, a fall from a palm tree changes everything.',
     link: { href: '/story', label: 'Read the story behind it' },
   },
+  {
+    id: 'villages', name: 'Nine villages', en: 'Nobody here could throw him', x: 22.5, y: 71, zoom: 2.4,
+    text: 'In nine villages, Ojadili’s back has never touched the ground. Every wrestler who tried ended up looking at the sky.',
+    img: '/images/ww/ww-hercules.jpg', alt: 'Ojadili throws a wrestler across his hip as the crowd watches',
+    link: { href: '/who-would-win', label: 'Who would win?' },
+  },
+  {
+    id: 'seven-forests', name: 'Seven forests', en: 'The road out of Ụmụagụ', x: 50, y: 46.5, zoom: 2,
+    text: 'When nobody at home can throw him, Ojadili goes looking for someone who can. The red path runs through seven forests on the way.',
+    link: { href: '/characters', label: 'Meet Ojadili' },
+  },
+  {
+    id: 'last-forest', name: 'The last forest', en: 'Grey, and full of ghosts', x: 60, y: 35, zoom: 2.4,
+    text: 'The last of the seven forests is grey and quiet, and ghosts drift between the trees.',
+    link: { href: '/story#words', label: 'Igbo words for spirits' },
+  },
+  {
+    id: 'river', name: 'The fourteenth river', en: 'Where Eke Mmiri lives', x: 50.5, y: 28.5, zoom: 2.8,
+    text: 'Fourteen rivers stand between Ụmụagụ and the spirit world. In the last one lives Eke Mmiri, the River Spirit, and Ojadili has to wrestle it.',
+    img: '/images/ww/fight-python.jpg', alt: 'Ojadili wrestles the masked river python, SPLOOSH',
+    link: { href: '/story#words', label: 'Who is Eke Mmiri?' },
+  },
+  {
+    id: 'ala-mmuo', name: 'Ala Mmụọ', en: 'The land of spirits', x: 49.5, y: 17.5, zoom: 2.2,
+    text: 'Past the last river are the carved gates of the spirit world. Ojadili goes in looking for one more fight, and the spirits are waiting.',
+    img: '/images/ww/fight-spirit.jpg', alt: 'Ojadili throws a spirit with many faces, KRAAASH',
+    link: { href: '/who-would-win', label: 'See who he fights' },
+  },
 ];
 ---
-<section class="maphero" data-maphero aria-label="The world of Ojadili: an interactive map">
-  <div class="intro">
+<section class="world" data-world aria-label="The world of Ojadili: an interactive map">
+  <div class="viewport" data-viewport>
+    <div class="stage" data-stage>
+      <img
+        src="/images/map-1400.jpg"
+        srcset="/images/map-800.jpg 800w, /images/map-1400.jpg 1400w"
+        sizes="(max-width: 700px) 200vw, 1400px"
+        width="1400" height="2043"
+        alt="The world of Ojadili: Ụmụagụ, Amaeke and the palm grove at the bottom, nine villages, seven forests, the last forest, the fourteenth river, and the gates of Ala Mmụọ at the top"
+        draggable="false"
+        fetchpriority="high"
+      />
+      {places.map((p, i) => (
+        <button
+          class="spot"
+          type="button"
+          style={`left:${p.x}%;top:${p.y}%`}
+          data-spot={p.id}
+          data-x={p.x}
+          data-y={p.y}
+          data-zoom={p.zoom}
+          aria-controls="place-card"
+          aria-label={p.name}
+        ><span class="dot" aria-hidden="true"></span><span class="tip" aria-hidden="true">{p.name}</span></button>
+      ))}
+    </div>
+  </div>
+
+  <div class="card intro" data-intro>
     <p class="call" lang="ig">Ifo chakpii!</p>
     <button class="answer" type="button" data-answer hidden lang="ig">Wọo!</button>
     <div class="opening" data-opening>
@@ -65,115 +93,336 @@ const places = [
       </h1>
       <p class="by">A graphic novel by Dubem Gbuzue</p>
       <BuyButtons light />
-      <p class="hint">Tap a place on the map to explore Ojadili’s world.</p>
     </div>
   </div>
 
-  <div class="mapwrap">
-    <div class="map">
-      <img
-        src="/images/map-1400.jpg"
-        srcset="/images/map-800.jpg 800w, /images/map-1400.jpg 1400w"
-        sizes="(max-width: 900px) 100vw, 60vh"
-        width="1400" height="2043"
-        alt="The world of Ojadili: Ụmụagụ, Amaeke and the palm grove at the bottom, nine villages, seven forests, the last forest, the fourteenth river, and the gates of Ala Mmụọ at the top"
-        fetchpriority="high"
-      />
-      {places.map((p) => (
-        <button
-          class="spot"
-          type="button"
-          style={`left:${p.x}%;top:${p.y}%`}
-          data-spot={p.id}
-          aria-controls="place-panel"
-          aria-label={p.name}
-        ><span class="dot" aria-hidden="true"></span><span class="tip">{p.name}</span></button>
-      ))}
-    </div>
-  </div>
-
-  <aside class="panel" id="place-panel" data-panel aria-live="polite" tabindex="-1">
-    <div class="panel-empty" data-empty>
-      <p class="pe-title">Where to?</p>
-      <p>Tap a glowing spot on the map. Start in Ụmụagụ, at the bottom, and follow the red path to the gates of Ala Mmụọ.</p>
-    </div>
-    {places.map((p) => (
+  <aside class="card place-card" id="place-card" data-card aria-live="polite" tabindex="-1" hidden>
+    <button class="close" type="button" data-close aria-label="Back to the whole map">×</button>
+    {places.map((p, i) => (
       <article class="place" data-place={p.id} hidden>
-        <button class="close" type="button" data-close aria-label="Close">×</button>
         {p.img && <img src={p.img} alt={p.alt} loading="lazy" />}
+        <p class="step">Stop {i + 1} of {places.length} on the road</p>
         <h2 lang="ig">{p.name}</h2>
         <p class="en">{p.en}</p>
         <p>{p.text}</p>
         <a class="go" href={p.link.href}>{p.link.label}</a>
       </article>
     ))}
+    <div class="nav">
+      <button class="btn small" type="button" data-prev>Back down the path</button>
+      <button class="btn small solid" type="button" data-next>Further up the path</button>
+    </div>
   </aside>
+
+  <div class="controls" data-controls>
+    <button type="button" data-zoom-in aria-label="Zoom in">+</button>
+    <button type="button" data-zoom-out aria-label="Zoom out">−</button>
+    <button type="button" class="whole" data-reset>Whole map</button>
+  </div>
+  <p class="hint">Tap a glowing spot or drag to look around.</p>
 </section>
 
 <script>
-  const root = document.querySelector<HTMLElement>('[data-maphero]');
-  if (root) {
-    const spots = root.querySelectorAll<HTMLButtonElement>('[data-spot]');
-    const places = root.querySelectorAll<HTMLElement>('[data-place]');
-    const empty = root.querySelector<HTMLElement>('[data-empty]');
-    const panel = root.querySelector<HTMLElement>('[data-panel]');
+  const world = document.querySelector<HTMLElement>('[data-world]');
+  const viewport = world?.querySelector<HTMLElement>('[data-viewport]');
+  const stage = world?.querySelector<HTMLElement>('[data-stage]');
 
-    const show = (id: string | null) => {
-      spots.forEach((s) => s.setAttribute('aria-pressed', String(s.dataset.spot === id)));
-      places.forEach((p) => (p.hidden = p.dataset.place !== id));
-      if (empty) empty.hidden = id !== null;
-      root.classList.toggle('open', id !== null);
+  if (world && viewport && stage) {
+    const W = 1400, H = 2043;
+    const spots = [...world.querySelectorAll<HTMLButtonElement>('[data-spot]')];
+    const placeEls = [...world.querySelectorAll<HTMLElement>('[data-place]')];
+    const card = world.querySelector<HTMLElement>('[data-card]')!;
+    const prev = world.querySelector<HTMLButtonElement>('[data-prev]')!;
+    const next = world.querySelector<HTMLButtonElement>('[data-next]')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = () => window.matchMedia('(min-width: 901px)').matches;
+
+    stage.style.width = W + 'px';
+    stage.style.height = H + 'px';
+
+    let s = 1, tx = 0, ty = 0, current = -1, dragged = false;
+    const vw = () => viewport.clientWidth;
+    const vh = () => viewport.clientHeight;
+    const fitScale = () => Math.min(vw() / W, vh() / H) * 0.96;
+    const maxScale = () => fitScale() * 4;
+
+    const apply = (animate = false) => {
+      stage.classList.toggle('flying', animate && !reduce);
+      stage.style.transform = `translate(${tx}px, ${ty}px) scale(${s})`;
+      stage.style.setProperty('--inv', String(1 / s));
+      const zoomed = s > fitScale() * 1.05;
+      viewport.style.touchAction = zoomed ? 'none' : 'pan-y';
+      world.classList.toggle('zoomed', zoomed);
     };
-    spots.forEach((s) => s.addEventListener('click', () => show(s.dataset.spot ?? null)));
-    root.querySelectorAll<HTMLButtonElement>('[data-close]').forEach((b) =>
-      b.addEventListener('click', () => show(null)),
-    );
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') show(null); });
 
-    // Call and response: answer "Wọo!" to start the story at Ụmụagụ.
-    const btn = root.querySelector<HTMLButtonElement>('[data-answer]');
-    const opening = root.querySelector<HTMLElement>('[data-opening]');
+    // Keep part of the map on screen whatever happens.
+    const clamp = () => {
+      const mw = W * s, mh = H * s;
+      const slackX = vw() * 0.35, slackY = vh() * 0.35;
+      const minX = Math.min(vw() - mw, (vw() - mw) / 2) - slackX;
+      const maxX = Math.max(0, (vw() - mw) / 2) + slackX;
+      const minY = Math.min(vh() - mh, (vh() - mh) / 2) - slackY;
+      const maxY = Math.max(0, (vh() - mh) / 2) + slackY;
+      tx = Math.min(maxX, Math.max(minX, tx));
+      ty = Math.min(maxY, Math.max(minY, ty));
+    };
+
+    const fit = (animate = true) => {
+      s = fitScale();
+      tx = (vw() - W * s) / 2;
+      ty = (vh() - H * s) / 2;
+      apply(animate);
+    };
+
+    // Zoom while keeping the map point under (cx, cy) still.
+    const zoomAt = (newS: number, cx: number, cy: number, animate = false) => {
+      newS = Math.min(maxScale(), Math.max(fitScale(), newS));
+      const mx = (cx - tx) / s, my = (cy - ty) / s;
+      s = newS;
+      tx = cx - mx * s;
+      ty = cy - my * s;
+      clamp();
+      apply(animate);
+    };
+
+    const flyTo = (xPct: number, yPct: number, zoom: number) => {
+      s = Math.min(maxScale(), fitScale() * zoom);
+      const px = (xPct / 100) * W, py = (yPct / 100) * H;
+      // Leave room for the place card: to the right on wide screens, below on phones.
+      const cx = wide() ? vw() * 0.36 : vw() / 2;
+      const cy = wide() ? vh() / 2 : vh() * 0.27;
+      tx = cx - px * s;
+      ty = cy - py * s;
+      apply(true);
+    };
+
+    const open = (i: number) => {
+      current = i;
+      const sp = spots[i];
+      spots.forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+      placeEls.forEach((el, j) => (el.hidden = j !== i));
+      card.hidden = false;
+      card.scrollTop = 0;
+      world.classList.add('exploring');
+      prev.disabled = i === 0;
+      next.disabled = i === spots.length - 1;
+      flyTo(Number(sp.dataset.x), Number(sp.dataset.y), Number(sp.dataset.zoom));
+    };
+
+    const close = () => {
+      current = -1;
+      spots.forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      card.hidden = true;
+      world.classList.remove('exploring');
+      fit(true);
+    };
+
+    spots.forEach((b, i) => b.addEventListener('click', (e) => {
+      if (dragged) { e.preventDefault(); return; }
+      open(i);
+    }));
+    prev.addEventListener('click', () => current > 0 && open(current - 1));
+    next.addEventListener('click', () => current < spots.length - 1 && open(current + 1));
+    world.querySelector('[data-close]')!.addEventListener('click', close);
+    world.querySelector('[data-reset]')!.addEventListener('click', close);
+    world.querySelector('[data-zoom-in]')!.addEventListener('click', () => zoomAt(s * 1.5, vw() / 2, vh() / 2, true));
+    world.querySelector('[data-zoom-out]')!.addEventListener('click', () => zoomAt(s / 1.5, vw() / 2, vh() / 2, true));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== -1) close(); });
+
+    // Drag to pan, two fingers to pinch.
+    const pointers = new Map<number, { x: number; y: number }>();
+    let start: { x: number; y: number; tx: number; ty: number } | null = null;
+    let pinch: { d: number; s: number } | null = null;
+
+    viewport.addEventListener('pointerdown', (e) => {
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) { start = { x: e.clientX, y: e.clientY, tx, ty }; dragged = false; }
+      if (pointers.size === 2) {
+        const [a, b] = [...pointers.values()];
+        pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, s };
+      }
+    });
+    viewport.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      const r = viewport.getBoundingClientRect();
+      if (pointers.size === 2 && pinch) {
+        const [a, b] = [...pointers.values()];
+        dragged = true;
+        zoomAt(pinch.s * (Math.hypot(a.x - b.x, a.y - b.y) / pinch.d), (a.x + b.x) / 2 - r.left, (a.y + b.y) / 2 - r.top);
+        return;
+      }
+      if (start && pointers.size === 1) {
+        const dx = e.clientX - start.x, dy = e.clientY - start.y;
+        if (!dragged && Math.hypot(dx, dy) < 6) return;
+        // At the whole-map view on a phone, one finger scrolls the page instead.
+        if (e.pointerType === 'touch' && !world.classList.contains('zoomed')) return;
+        dragged = true;
+        try { viewport.setPointerCapture(e.pointerId); } catch {}
+        tx = start.tx + dx;
+        ty = start.ty + dy;
+        clamp();
+        apply();
+      }
+    });
+    const end = (e: PointerEvent) => {
+      pointers.delete(e.pointerId);
+      if (pointers.size < 2) pinch = null;
+      if (pointers.size === 0) { start = null; setTimeout(() => (dragged = false), 0); }
+    };
+    viewport.addEventListener('pointerup', end);
+    viewport.addEventListener('pointercancel', end);
+
+    // Ctrl/⌘ + scroll or a trackpad pinch zooms; plain scrolling still moves down the page.
+    viewport.addEventListener('wheel', (e) => {
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      const r = viewport.getBoundingClientRect();
+      zoomAt(s * Math.exp(-e.deltaY * 0.01), e.clientX - r.left, e.clientY - r.top);
+    }, { passive: false });
+    viewport.addEventListener('dblclick', (e) => {
+      if ((e.target as HTMLElement).closest('[data-spot]')) return;
+      const r = viewport.getBoundingClientRect();
+      zoomAt(s * 1.8, e.clientX - r.left, e.clientY - r.top, true);
+    });
+
+    let t: number | undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(t);
+      t = window.setTimeout(() => (current === -1 ? fit(false) : open(current)), 150);
+    });
+
+    fit(false);
+
+    // Call and response: answer "Wọo!" and the map flies down to Ụmụagụ.
+    const answer = world.querySelector<HTMLButtonElement>('[data-answer]');
     let seen = false;
     try { seen = sessionStorage.getItem('ojadili-answered') === '1'; } catch {}
-    if (btn && opening && !seen) {
-      root.classList.add('waiting');
-      btn.hidden = false;
-      btn.addEventListener('click', () => {
-        root.classList.remove('waiting');
-        root.classList.add('answered');
-        btn.hidden = true;
+    if (answer && !seen) {
+      world.classList.add('waiting');
+      answer.hidden = false;
+      answer.addEventListener('click', () => {
+        world.classList.remove('waiting');
+        world.classList.add('answered');
+        answer.hidden = true;
         try { sessionStorage.setItem('ojadili-answered', '1'); } catch {}
-        if (window.matchMedia('(min-width: 901px)').matches) show('umuagu');
-        panel?.focus?.();
+        setTimeout(() => open(0), 600);
       });
     }
   }
 </script>
 
 <style>
-  .maphero {
-    --h: calc(100svh - 7rem);
+  .world {
+    position: relative;
+    height: calc(100svh - 5.5rem);
+    min-height: 32rem;
+    background: radial-gradient(ellipse at 50% 40%, #232850 0%, var(--night) 70%);
+    color: var(--nzu);
+    overflow: hidden;
+  }
+  .viewport { position: absolute; inset: 0; overflow: hidden; cursor: grab; touch-action: pan-y; user-select: none; }
+  .viewport:active { cursor: grabbing; }
+  .stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; --inv: 1; }
+  .stage.flying { transition: transform 900ms cubic-bezier(.45, .05, .2, 1); }
+  .stage img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8);
+    pointer-events: none;
+  }
+  .waiting .stage img { filter: brightness(0.5) saturate(0.7); }
+  .answered .stage img { transition: filter 900ms ease; }
+
+  /* Spots keep the same on-screen size at any zoom */
+  .spot { position: absolute; width: 0; height: 0; border: 0; padding: 0; background: none; cursor: pointer; }
+  .spot:focus-visible { outline: none; }
+  .dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.75rem;
+    height: 2.75rem;
+    transform-origin: 0 0;
+    transform: scale(var(--inv)) translate(-50%, -50%);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+  }
+  .dot::before {
+    content: '';
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--palm);
+    border: 3px solid var(--night);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  .spot:hover .dot::before,
+  .spot:focus-visible .dot::before,
+  .spot[aria-pressed='true'] .dot::before {
+    background: var(--ufie);
+    border-color: var(--nzu);
+    width: 1.5rem;
+    height: 1.5rem;
+    animation: none;
+  }
+  .spot:focus-visible .dot { outline: 3px solid var(--palm); outline-offset: 2px; }
+  .tip {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform-origin: 0 0;
+    transform: scale(var(--inv)) translate(-50%, calc(-100% - 1.5rem));
+    white-space: nowrap;
     background: var(--night);
     color: var(--nzu);
-    display: grid;
-    grid-template-columns: minmax(16rem, 1fr) auto minmax(18rem, 1fr);
-    align-items: center;
-    gap: clamp(1.5rem, 3vw, 3rem);
-    padding: 0 clamp(1.25rem, 3vw, 3rem) 1.5rem;
-    min-height: var(--h);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0.15rem 0.65rem 0.2rem;
+    border-radius: 4px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 150ms;
+  }
+  .spot:hover .tip, .spot:focus-visible .tip, .spot[aria-pressed='true'] .tip { opacity: 1; }
+  .waiting .spot { visibility: hidden; }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(226, 161, 27, 0.75); }
+    70% { box-shadow: 0 0 0 14px rgba(226, 161, 27, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(226, 161, 27, 0); }
   }
 
-  /* Left: the storyteller's call */
-  .intro { max-width: 26rem; justify-self: end; }
+  /* Cards float over the map */
+  .card {
+    position: absolute;
+    z-index: 2;
+    background: rgba(22, 26, 51, 0.93);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(237, 236, 232, 0.12);
+    border-radius: 14px;
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+  }
+  .intro {
+    left: clamp(1rem, 3vw, 2.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(26rem, 30vw);
+    padding: 1.6rem 1.6rem 1.4rem;
+    transition: opacity 300ms, transform 300ms;
+  }
+  .exploring .intro, .zoomed .intro { opacity: 0; transform: translate(-1rem, -50%); pointer-events: none; }
   .call {
     font-family: var(--display);
     font-weight: 900;
-    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-size: clamp(2.25rem, 3.2vw, 3rem);
     line-height: 0.85;
-    margin: 0 0 1.25rem;
-    transition: font-size 600ms cubic-bezier(.2,.7,.2,1);
+    margin: 0 0 0.75rem;
   }
-  .answered .call { font-size: clamp(2.5rem, 4vw, 3.5rem); }
+  .waiting .call { font-size: clamp(3rem, 5.5vw, 5rem); margin-bottom: 1.25rem; }
   .answer {
     font-family: var(--display);
     font-weight: 900;
@@ -188,130 +437,150 @@ const places = [
   }
   .answer:hover { background: transparent; color: var(--palm); }
   .waiting .opening { display: none; }
-  .answered .opening { animation: rise 600ms cubic-bezier(.2,.7,.2,1) both; }
-  .once { font-size: 1.15em; }
-  h1 { font-size: clamp(2rem, 3.2vw, 3rem); margin: 1.25rem 0 0.5rem; }
+  .once { font-size: 1.05em; }
+  h1 { font-size: clamp(1.75rem, 2.6vw, 2.5rem); margin: 1rem 0 0.4rem; }
   .t1 { display: block; color: var(--palm); font-size: 0.55em; font-weight: 700; margin-bottom: 0.2rem; }
   .t2 { display: block; }
-  .by { color: #b9bbcf; margin-bottom: 1.25rem; }
-  .hint { color: #b9bbcf; font-style: italic; margin-top: 1.25rem; font-size: 0.95rem; }
+  .by { color: #b9bbcf; margin-bottom: 1.1rem; font-size: 0.95rem; }
 
-  /* Centre: the map */
-  .mapwrap { height: var(--h); display: grid; place-items: center; }
-  .map { position: relative; height: 100%; aspect-ratio: 1400 / 2043; }
-  .map img { width: 100%; height: 100%; object-fit: contain; border-radius: 6px; box-shadow: 0 30px 60px -25px rgba(0,0,0,0.7); }
-  .waiting .map img { filter: brightness(0.6) saturate(0.8); }
-  .answered .map img { transition: filter 900ms ease; }
-
-  .spot {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 2.75rem;
-    height: 2.75rem;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
+  .place-card {
+    right: clamp(1rem, 3vw, 2.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(25rem, 32vw);
+    max-height: calc(100% - 2rem);
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+    outline: none;
   }
-  .dot {
-    width: 1.1rem;
-    height: 1.1rem;
-    border-radius: 50%;
-    background: var(--palm);
-    border: 3px solid var(--night);
-    box-shadow: 0 0 0 0 rgba(226, 161, 27, 0.7);
-    animation: pulse 2.4s ease-out infinite;
-  }
-  .spot:hover .dot, .spot:focus-visible .dot, .spot[aria-pressed='true'] .dot {
-    background: var(--ufie);
-    border-color: var(--nzu);
-    transform: scale(1.25);
-    animation: none;
-  }
-  .tip {
-    position: absolute;
-    bottom: calc(100% - 0.2rem);
-    left: 50%;
-    transform: translateX(-50%);
-    white-space: nowrap;
-    background: var(--night);
-    color: var(--nzu);
-    font-family: var(--display);
-    font-weight: 700;
-    font-size: 1rem;
-    padding: 0.15rem 0.6rem 0.2rem;
-    border-radius: 4px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 150ms;
-  }
-  .spot:hover .tip, .spot:focus-visible .tip { opacity: 1; }
-  .waiting .spot { visibility: hidden; }
-  @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(226, 161, 27, 0.7); }
-    70% { box-shadow: 0 0 0 14px rgba(226, 161, 27, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(226, 161, 27, 0); }
-  }
-
-  /* Right: what's here */
-  .panel { max-width: 24rem; justify-self: start; outline: none; }
-  .waiting .panel { visibility: hidden; }
-  .pe-title { font-family: var(--display); font-weight: 800; font-size: 2rem; line-height: 1; margin-bottom: 0.5rem; }
-  .panel-empty p:not(.pe-title) { color: #c9cad9; }
-  .place { position: relative; animation: rise 350ms cubic-bezier(.2,.7,.2,1) both; }
-  .place img { border-radius: 6px; margin-bottom: 1rem; max-height: 14rem; width: 100%; object-fit: cover; }
-  .place h2 { font-size: clamp(2rem, 3vw, 2.75rem); margin: 0 0 0.15rem; color: var(--palm); }
-  .en { font-style: italic; color: #b9bbcf; margin-bottom: 0.75rem; }
+  .place { animation: rise 380ms cubic-bezier(.2, .7, .2, 1) both; }
+  .place img { border-radius: 8px; margin-bottom: 0.9rem; max-height: 13rem; width: 100%; object-fit: cover; }
+  .step { font-size: 0.85rem; color: #b9bbcf; margin: 0 0 0.2rem; }
+  .place h2 { font-size: clamp(1.9rem, 2.8vw, 2.6rem); margin: 0 0 0.1rem; color: var(--palm); padding-right: 2.5rem; }
+  .en { font-style: italic; color: #b9bbcf; margin-bottom: 0.6rem; }
   .go { color: var(--palm); font-weight: 600; }
   .close {
-    display: none;
     position: absolute;
-    top: -0.25rem;
-    right: 0;
-    width: 2.5rem;
-    height: 2.5rem;
+    top: 0.6rem;
+    right: 0.6rem;
+    z-index: 1;
+    width: 2.4rem;
+    height: 2.4rem;
     border-radius: 50%;
     border: 0;
     background: var(--night-2);
     color: var(--nzu);
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
   }
-  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .close:hover { background: var(--palm); color: var(--night); }
+  .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1.1rem; }
+  .btn.small { font-size: 1rem; padding: 0.45rem 0.8rem 0.5rem; color: var(--nzu); border-color: rgba(237, 236, 232, 0.5); }
+  .btn.small:hover { background: var(--nzu); color: var(--night); }
+  .btn.small.solid { background: var(--palm); border-color: var(--palm); color: var(--night); }
+  .btn.small.solid:hover { background: transparent; color: var(--palm); }
+  .btn.small:disabled { opacity: 0.35; pointer-events: none; }
 
-  /* Tablet and phone: map full width, place opens as a sheet from the bottom */
+  .controls {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: 1rem;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.35rem;
+    background: rgba(22, 26, 51, 0.93);
+    border: 1px solid rgba(237, 236, 232, 0.12);
+    border-radius: 999px;
+  }
+  .controls button {
+    min-width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 999px;
+    border: 0;
+    background: var(--night-2);
+    color: var(--nzu);
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  .controls .whole { font-size: 1rem; padding: 0 1rem; white-space: nowrap; }
+  .controls button:hover { background: var(--palm); color: var(--night); }
+  .hint {
+    position: absolute;
+    z-index: 1;
+    right: clamp(1rem, 4vw, 4rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(17rem, 22vw);
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 1.8vw, 1.75rem);
+    line-height: 1.15;
+    color: var(--nzu);
+    transition: opacity 300ms;
+  }
+  .hint::before {
+    content: '';
+    display: block;
+    width: 1.15rem;
+    height: 1.15rem;
+    border-radius: 50%;
+    background: var(--palm);
+    border: 3px solid var(--night);
+    margin-bottom: 0.75rem;
+    animation: pulse 2.4s ease-out infinite;
+  }
+  .waiting .controls, .waiting .hint, .exploring .hint, .zoomed .hint { opacity: 0; pointer-events: none; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* Phones and small tablets: title at the bottom, place card as a sheet */
   @media (max-width: 900px) {
-    .maphero { grid-template-columns: 1fr; padding: 0.5rem 1rem 2rem; min-height: 0; }
-    .intro { justify-self: start; }
-    .mapwrap { height: auto; }
-    .map { height: auto; width: 100%; max-width: 34rem; }
-    .panel {
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
-      max-width: none;
-      max-height: 70svh;
-      overflow-y: auto;
-      background: var(--night);
-      border-top: 3px solid var(--palm);
-      border-radius: 16px 16px 0 0;
-      padding: 1.25rem 1.25rem 1.5rem;
-      z-index: 5;
-      transform: translateY(105%);
-      transition: transform 300ms cubic-bezier(.2,.7,.2,1);
-      box-shadow: 0 -20px 40px rgba(0,0,0,0.4);
+    .world { height: calc(100svh - 7.5rem); min-height: 34rem; display: flex; flex-direction: column; }
+    .viewport { position: relative; inset: auto; flex: 1; }
+    .intro {
+      position: relative;
+      order: -1;
+      top: auto; left: auto;
+      width: auto;
+      transform: none;
+      margin: 0.5rem 0.75rem 0;
+      padding: 0.7rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
     }
-    .open .panel { transform: none; }
-    .panel-empty { display: none; }
-    .close { display: block; }
-    .place h2 { padding-right: 3rem; }
-    .place img { max-height: 11rem; }
-    .tip { display: none; }
+    .exploring .intro, .zoomed .intro { opacity: 1; transform: none; pointer-events: auto; }
+    .intro .opening { display: contents; }
+    .once, .by, .intro h1 { display: none; }
+    .call { font-size: 1.75rem; margin: 0; white-space: nowrap; }
+    .intro :global(.buy .btn) { font-size: 1rem; padding: 0.4rem 0.9rem 0.45rem; }
+    .waiting .intro { flex-direction: column; align-items: flex-start; padding: 1rem 1.1rem; }
+    .waiting .opening { display: none; }
+    .waiting .call { font-size: 3rem; }
+    .place-card {
+      top: auto;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: auto;
+      max-height: 60%;
+      transform: none;
+      border-radius: 16px 16px 0 0;
+      border-top: 3px solid var(--palm);
+      padding: 1rem 1.1rem 1.1rem;
+    }
+    .place img { max-height: 8.5rem; }
+    .exploring .controls { opacity: 0; pointer-events: none; }
+    .hint { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .dot { animation: none; }
+    .dot::before { animation: none; }
   }
 </style>
