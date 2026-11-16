@@ -8,7 +8,7 @@ const people = [
     alt: 'Ojadili lifting an opponent onto his shoulders, white chalk under his eyes',
     text: [
       'The greatest wrestler Ụmụagụ has ever known. In nine villages his back has never touched the ground, and he wears white chalk under his eyes when he fights.',
-      'He is a palm-wine tapper’s son. After his father fell from a palm tree, he made a promise to his chi, and he has been fighting ever since.',
+      'He is a palm-wine tapper’s son. After his father fell from a palm tree, he made three promises to his chi, and he has been fighting ever since.',
     ],
   },
   {
@@ -28,6 +28,12 @@ const people = [
     ],
   },
 ];
+
+const village = [
+  { name: 'Egbuna', img: '/images/egbuna.jpg', text: 'Ojadili’s friend. He plays the ọja, a carved wooden flute.', alt: 'Egbuna holding a wooden flute' },
+  { name: 'Nne', img: '/images/nne.jpg', text: 'Ojadili’s mother.', alt: 'Ojadili’s mother in a grey headwrap' },
+  { name: 'Ezeagu', img: '/images/ezeagu.jpg', text: 'The dibia, a diviner and healer. He sees far.', alt: 'Ezeagu, an old man with white chalk around one eye' },
+];
 ---
 <Base title="Characters" description="Meet Ojadili, Chidi and Nne-nne, and see the village of Ụmụagụ.">
   <section class="section">
@@ -43,11 +49,23 @@ const people = [
             </div>
           </article>
         ))}
+        <div class="village">
+          <h2>Also in Ụmụagụ</h2>
+          <ul>
+            {village.map((v) => (
+              <li>
+                <figure class="art"><img src={v.img} alt={v.alt} width="600" height="473" loading="lazy" /></figure>
+                <h3>{v.name}</h3>
+                <p>{v.text}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
         <article class="person chi">
           <div class="prose">
             <h2>His chi</h2>
             <p>
-              Every person has a chi. Ojadili made his promise to his, and it’s the last opponent he
+              Every person has a chi. Ojadili made his promises to his, and it’s the last opponent he
               meets in Ala Mmụọ. You’ll have to read the book for the rest.
             </p>
           </div>
@@ -62,9 +80,13 @@ const people = [
         <h2>Ụmụagụ</h2>
         <p>
           Ojadili’s home village, and where his story starts. From here he goes through seven
-          forests and across fourteen rivers to reach the land of spirits.
+          forests, the last of them full of ghosts, and across fourteen rivers to reach the gates of
+          Ala Mmụọ, the land of spirits.</p>
+        <p>
+          This map is the first page of the book.
         </p>
       </div>
+      <figure class="art map"><img src="/images/map-umuagu.jpg" alt="Map of the world of Ojadili: Ụmụagụ, Amaeke and the palm grove at the bottom, seven forests, the last forest, the fourteenth river, and the gates of Ala Mmụọ at the top" width="1000" height="1461" /></figure>
     </div>
   </section>
 </Base>
@@ -87,9 +109,16 @@ const people = [
     gap: clamp(2rem, 5vw, 4rem);
     align-items: center;
   }
-  .place-grid:has(> :only-child) { grid-template-columns: 1fr; }
+  .map { margin: 0; max-width: 30rem; justify-self: end; }
+  .village h2 { margin-bottom: 1.25rem; }
+  .village ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; }
+  .village figure { margin: 0 0 0.75rem; aspect-ratio: 600 / 473; }
+  .village figure img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .village h3 { margin-bottom: 0.25rem; }
+  .village p { margin: 0; }
   @media (max-width: 760px) {
-    .person, .place-grid { grid-template-columns: 1fr; }
+    .person, .place-grid, .village ul { grid-template-columns: 1fr; }
+    .map { justify-self: start; }
     .person.flip figure { order: 0; }
   }
 </style>

@@ -1,17 +1,54 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const words = [
-  { ig: 'Ifo chakpii!', note: 'How a folktale is started at home. The storyteller calls it out and everyone listening answers “Wọo!”' },
-  { ig: 'Nne-nne', note: 'Grandmother. Chidi’s Nne-nne is the one telling the story.' },
-  { ig: 'Chi', note: 'Your personal spirit, the part of the divine that goes with you through life. In Igbo belief, your chi has a say in what you can and can’t do.' },
-  { ig: 'Ụmụagụ', note: 'Ojadili’s village in the book.' },
-  { ig: 'Echi dị ime', note: 'Tomorrow is pregnant. Nobody knows what tomorrow will bring.' },
-  { ig: 'Onye ji onye n’ala ji onwe ya', note: 'Whoever holds another person down holds himself down too.' },
-  { ig: 'Ala Mmụọ', note: 'The land of the spirits.' },
+// From the "Words from the story" and "How to say it" pages in Book One.
+const words: { ig: string; say?: string; note: string }[] = [
+  { ig: 'Abụba ugo', note: 'Eagle feather; a mark of honour' },
+  { ig: 'Afa', note: 'Divination read from strings of seeds' },
+  { ig: 'Agbala', note: 'A woman; also a man who never took a title' },
+  { ig: 'Akalogoli', say: 'ah-kah-loh-goh-lee', note: 'Restless spirits of people who died a bad death and were never buried' },
+  { ig: 'Ala', note: 'The earth goddess, keeper of the land and its laws' },
+  { ig: 'Ala mmụọ', say: 'ah-lah m-moo-aw', note: 'The land of spirits' },
+  { ig: 'Bịa', note: 'Come' },
+  { ig: 'Biko', note: 'Please' },
+  { ig: 'Chi', say: 'chee', note: 'A person’s own spirit and destiny, agreed before birth' },
+  { ig: 'Di m', note: 'My husband' },
+  { ig: 'Dibia', say: 'dee-bee-ah', note: 'A diviner and healer' },
+  { ig: 'Dike', note: 'Hero; a brave man' },
+  { ig: 'Echi', note: 'Tomorrow' },
+  { ig: 'Echi dị ime', note: '“Tomorrow is pregnant”: no one knows what tomorrow will bring' },
+  { ig: 'Ehee!', note: '“Oh!”, a cry of surprise' },
+  { ig: 'Eke', note: 'One of the four Igbo market days' },
+  { ig: 'Eke Mmiri', note: '“Python of the river”; the River Spirit' },
+  { ig: 'Ifo', note: 'A folktale, told aloud' },
+  { ig: 'Ifo chakpii! / Wọo!', say: 'ee-foh chak-pee / waw', note: 'The call and answer that opens a folktale' },
+  { ig: 'Ikenga', note: 'A carved shrine to a man’s right hand: his strength and achievement' },
+  { ig: 'Ịṅụ iyi n’ihu chi ya', note: 'To swear an oath in the presence of one’s chi' },
+  { ig: 'Iri ji', note: 'The new yam festival' },
+  { ig: 'Iseee', note: '“So be it”, answered after a blessing or vow' },
+  { ig: 'Ka chi bọọ', note: 'Good night; “until the day breaks”' },
+  { ig: 'Kọọrọ m akụkọ', note: 'Tell me a story' },
+  { ig: 'Mgba', say: 'm-gbah', note: 'Wrestling' },
+  { ig: 'Mmanwụ', note: 'Masquerade; a spirit made visible' },
+  { ig: 'Nne / Nna', note: 'Mother / father' },
+  { ig: 'Nne-nne', say: 'n-neh n-neh', note: 'Grandmother' },
+  { ig: 'Nnọọ', note: 'Welcome' },
+  { ig: 'Nwa m', note: 'My child' },
+  { ig: 'Nzu', note: 'Sacred white chalk' },
+  { ig: 'Ọ zuola', note: 'It is enough' },
+  { ig: 'Obi', note: 'The man’s house in a family compound' },
+  { ig: 'Ọfọ', note: 'A sacred staff that makes words binding' },
+  { ig: 'Ogbunabali', say: 'oh-gboo-nah-bah-lee', note: '“The one who kills at night”; the spirit of death' },
+  { ig: 'Ogene', note: 'A metal gong, beaten to call people together' },
+  { ig: 'Ọja', say: 'aw-jah', note: 'A carved wooden flute' },
+  { ig: 'Ojadili, agbala chi gị mgba', note: '“Ojadili, don’t wrestle your chi”' },
+  { ig: 'Onye ji onye n’ala ji onwe ya', note: '“Whoever holds another down holds himself down too”' },
+  { ig: 'Onye kwe, chi ya ekwe', note: '“When a person says yes, their chi says yes”' },
+  { ig: 'Ụmụagụ', say: 'oo-moo-ah-goo', note: 'Ojadili’s village' },
+  { ig: 'Ụmụnna', note: 'The men of a family line; kinsmen' },
 ];
 ---
-<Base title="The story behind it" description="The Igbo folktale of Ojadili, the wrestler who fought his chi, and why Dubem Gbuzue retold it for Igbo kids growing up away from home.">
+<Base title="The story behind it" description="The Igbo folktale of Ojadili, the wrestler who fought his chi, why Dubem Gbuzue retold it, and the Igbo words in the book with how to say them.">
   <section class="section">
     <div class="wrap">
       <h1>The story behind it</h1>
@@ -20,63 +57,61 @@ const words = [
         <div class="prose">
           <h2>The old tale</h2>
           <p>
-            Ojadili is a story Igbo families have told for a long time. He’s a wrestler so strong
-            that no one in the world of people can throw him, so he goes into the world of spirits
-            and keeps on winning there. In the end he faces one more opponent, his own <i lang="ig">chi</i>,
-            and it’s the one fight he can’t win.
+            Ojadili is an old Igbo folktale, told for generations in south-eastern Nigeria. A wrestler
+            who has beaten everyone goes to the land of spirits to find a worthy opponent, and in the
+            end he’s thrown by a small, thin spirit: his own <i lang="ig">chi</i>.
           </p>
           <p>
-            The way I heard it, the story is about pride, and about the limits of strength when you
-            stop listening to anyone. It also carries a very Igbo idea: you and your chi work
-            together, and nobody goes far by fighting the thing that walks with them.
-          </p>
-
-          <h2>Why I made this book</h2>
-          <p>
-            I grew up in Nigeria, in Nnokwa, and came to Sydney to study. I stayed and built a family
-            here. My kids are growing up a long way from where I grew up, and I’ve found it hard to
-            give them the stories, the words and the feel of home that I had without trying.
+            In Igbo belief your chi is your personal spirit, your other self, the one who agreed your
+            life with you before you were born. A proverb says <i lang="ig">onye kwe, chi ya ekwe</i>:
+            when a person says yes, their chi says yes too. Ojadili forgot that his strength was never
+            his alone.
           </p>
           <p>
-            So I made the book I wanted to read with them. It’s rooted in Igbo culture, in the way
-            people talk, the proverbs and the words, but it’s kept simple enough that a kid who
-            doesn’t speak Igbo can follow every page.
-          </p>
-          <p>
-            Book One is dedicated to my son Zimobi, and to all kids who have left their place of
-            heritage and want to get back to it.
+            Chinua Achebe wrote about the story in his essay “Chi in Igbo Cosmology”, and in Jekwu
+            Ozoemene’s telling a puny, thin spirit throws Ojadili and pins him to the ground. The book
+            draws on both, and on the way the tale is still told aloud.
           </p>
         </div>
 
         <div class="prose">
-          <h2>What I changed</h2>
+          <h2>What I added</h2>
           <p>
-            I added Chidi and his grandmother. Chidi is a twelve-year-old in Sydney who plays football,
-            and the whole tale reaches him the way it reached me, from someone older, starting with
-            <i lang="ig">Ifo chakpii!</i> A lot of kids reading this book live where Chidi lives.
+            Some parts are my own: Chidi and his Nne-nne, Ojadili’s childhood, and the spirits he meets
+            on the road. Chidi is twelve, lives in Sydney and plays football, and the tale reaches him
+            the way it reached me, from someone older, starting with <i lang="ig">Ifo chakpii!</i>
+          </p>
+
+          <h2>Why I made this book</h2>
+          <p>
+            I was born in Nigeria and come from Nnokwa. I moved to Sydney to study technology, ended up
+            staying, and built a family here.
           </p>
           <p>
-            I gave Ojadili a home, the village of Ụmụagụ, and a reason to fight. In the book his father
-            is a palm-wine tapper who falls from a palm tree. The boy makes a promise to his chi, and
-            part of that promise is the proverb that names Chapter 2:
-            <i lang="ig">onye ji onye n’ala ji onwe ya</i>.
-          </p>
-          <p>
-            The fight with his chi stays where it belongs, at the very end. What happens to Ojadili
-            after he loses is for the next book.
+            Raising children so far from home, I’ve seen how hard it is for them to feel close to a
+            culture they mostly hear about. The stories I grew up with felt a long way from their world.
+            Ojadili is my way of closing that distance, an old Igbo tale told so that my children, and
+            children like them, can carry it with them wherever they are.
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section glossary-wrap">
+  <section class="section glossary-wrap" id="words">
     <div class="wrap">
-      <h2>Igbo words in the book</h2>
+      <h2>Words from the story</h2>
+      <p class="intro">
+        A dot under a vowel changes its sound: <i lang="ig">ị</i> as in “sit”, <i lang="ig">ọ</i> as in
+        “law”, <i lang="ig">ụ</i> as in “put”. “Gb” and “kp” are one sound, made with the lips closed
+        together. Igbo is a tonal language, so the same word can mean different things when the voice
+        rises or falls. Ask an Igbo speaker to say these for you.
+      </p>
       <dl class="glossary">
         {words.map((w) => (
           <div>
             <dt lang="ig">{w.ig}</dt>
+            {w.say && <dd class="say">say <span>{w.say}</span></dd>}
             <dd>{w.note}</dd>
           </div>
         ))}
@@ -94,20 +129,23 @@ const words = [
   }
   .cols h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-top: 0.5em; }
   .glossary-wrap { background: var(--night); color: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
+  .intro { max-width: var(--measure); color: #c9cad9; }
   .glossary {
-    margin: 2rem 0 0;
+    margin: 2.5rem 0 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
-    gap: 2rem 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 1.75rem 3rem;
   }
   .glossary dt {
     font-family: var(--display);
     font-weight: 800;
-    font-size: 1.75rem;
+    font-size: 1.6rem;
     line-height: 1.05;
     color: var(--palm);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.25rem;
   }
-  .glossary dd { margin: 0; max-width: 30rem; }
+  .glossary dd { margin: 0; }
+  .say { font-size: 0.9rem; color: #b9bbcf; }
+  .say span { font-style: italic; }
   @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
 </style>
