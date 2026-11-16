@@ -1,0 +1,80 @@
+---
+import Base from '../layouts/Base.astro';
+import BuyButtons from '../components/BuyButtons.astro';
+import { SITE } from '../config';
+---
+<Base title="For families and schools" description="A free Ojadili activity page, ideas for reading the book together, and bulk orders for schools and community groups.">
+  <section class="section">
+    <div class="wrap">
+      <h1>For families and schools</h1>
+      <div class="grid">
+        <div class="prose">
+          <h2>Reading it together</h2>
+          <p>
+            I wrote Ojadili for Igbo kids growing up outside Nigeria, and for the parents and
+            grandparents who want to pass the old stories on. You don’t need to speak Igbo to follow
+            it, and there’s a list of the Igbo words and what they mean on <a href="/story">the story page</a>.
+          </p>
+          <p>
+            It reads best out loud. Do the <i lang="ig">Ifo chakpii!</i> call at the start and let your
+            kids shout back <i lang="ig">Wọo!</i> Afterwards, ask them who they think was right in the
+            last fight, and whether Ojadili kept the promise he made as a boy. Kids tend to have strong
+            opinions on both.
+          </p>
+          <p>
+            If you know a version of the Ojadili story from your own family, tell them that one too.
+          </p>
+        </div>
+
+        <aside class="download">
+          <h2>Free activity page</h2>
+          <p>Print it for a classroom, a Saturday school or a quiet afternoon at home.</p>
+          <a class="btn btn--solid" href="/downloads/ojadili-activity-page.pdf" download>Download the activity page (PDF)</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section orders">
+    <div class="wrap grid">
+      <div class="prose">
+        <h2>Schools, libraries and community groups</h2>
+        <p>
+          I can supply copies directly for schools, libraries, Igbo community groups, Saturday
+          schools and cultural events, and I’m happy to talk about bulk pricing.
+        </p>
+        <p>
+          Email <a href={`mailto:${SITE.email}?subject=Ojadili%20order`}>{SITE.email}</a> with how
+          many copies you need and where you are.
+        </p>
+      </div>
+      <div class="prose">
+        <h2>Buying one copy</h2>
+        <p>The paperback is on Amazon.</p>
+        <BuyButtons />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: 2rem;
+  }
+  .grid h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); }
+  .download {
+    align-self: start;
+    background: var(--night);
+    color: var(--nzu);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+  .download .btn--solid { background: var(--palm); border-color: var(--palm); color: var(--night); }
+  .download .btn--solid:hover { background: transparent; color: var(--palm); }
+  .orders { background: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
+  .orders .grid { margin-top: 0; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+</style>

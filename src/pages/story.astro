@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+
+const words = [
+  { ig: 'Ifo chakpii!', note: 'How a folktale is started at home. The storyteller calls it out and everyone listening answers “Wọo!”' },
+  { ig: 'Nne-nne', note: 'Grandmother. Chidi’s Nne-nne is the one telling the story.' },
+  { ig: 'Chi', note: 'Your personal spirit, the part of the divine that goes with you through life. In Igbo belief, your chi has a say in what you can and can’t do.' },
+  { ig: 'Ụmụagụ', note: 'Ojadili’s village in the book.' },
+  { ig: 'Echi dị ime', note: 'Tomorrow is pregnant. Nobody knows what tomorrow will bring.' },
+  { ig: 'Onye ji onye n’ala ji onwe ya', note: 'Whoever holds another person down holds himself down too.' },
+  { ig: 'Ala Mmụọ', note: 'The land of the spirits.' },
+];
+---
+<Base title="The story behind it" description="The Igbo folktale of Ojadili, the wrestler who fought his chi, and why Dubem Gbuzue retold it for Igbo kids growing up away from home.">
+  <section class="section">
+    <div class="wrap">
+      <h1>The story behind it</h1>
+
+      <div class="cols">
+        <div class="prose">
+          <h2>The old tale</h2>
+          <p>
+            Ojadili is a story Igbo families have told for a long time. He’s a wrestler so strong
+            that no one in the world of people can throw him, so he goes into the world of spirits
+            and keeps on winning there. In the end he faces one more opponent, his own <i lang="ig">chi</i>,
+            and it’s the one fight he can’t win.
+          </p>
+          <p>
+            The way I heard it, the story is about pride, and about the limits of strength when you
+            stop listening to anyone. It also carries a very Igbo idea: you and your chi work
+            together, and nobody goes far by fighting the thing that walks with them.
+          </p>
+
+          <h2>Why I made this book</h2>
+          <p>
+            I grew up in Nigeria, in Nnokwa, and came to Sydney to study. I stayed and built a family
+            here. My kids are growing up a long way from where I grew up, and I’ve found it hard to
+            give them the stories, the words and the feel of home that I had without trying.
+          </p>
+          <p>
+            So I made the book I wanted to read with them. It’s rooted in Igbo culture, in the way
+            people talk, the proverbs and the words, but it’s kept simple enough that a kid who
+            doesn’t speak Igbo can follow every page.
+          </p>
+          <p>
+            Book One is dedicated to my son Zimobi, and to all kids who have left their place of
+            heritage and want to get back to it.
+          </p>
+        </div>
+
+        <div class="prose">
+          <h2>What I changed</h2>
+          <p>
+            I added Chidi and his grandmother. Chidi is a twelve-year-old in Sydney who plays football,
+            and the whole tale reaches him the way it reached me, from someone older, starting with
+            <i lang="ig">Ifo chakpii!</i> A lot of kids reading this book live where Chidi lives.
+          </p>
+          <p>
+            I gave Ojadili a home, the village of Ụmụagụ, and a reason to fight. In the book his father
+            is a palm-wine tapper who falls from a palm tree. The boy makes a promise to his chi, and
+            part of that promise is the proverb that names Chapter 2:
+            <i lang="ig">onye ji onye n’ala ji onwe ya</i>.
+          </p>
+          <p>
+            The fight with his chi stays where it belongs, at the very end. What happens to Ojadili
+            after he loses is for the next book.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section glossary-wrap">
+    <div class="wrap">
+      <h2>Igbo words in the book</h2>
+      <dl class="glossary">
+        {words.map((w) => (
+          <div>
+            <dt lang="ig">{w.ig}</dt>
+            <dd>{w.note}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(2rem, 6vw, 5rem);
+    margin-top: 2.5rem;
+  }
+  .cols h2 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); margin-top: 0.5em; }
+  .glossary-wrap { background: var(--night); color: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
+  .glossary {
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+    gap: 2rem 3rem;
+  }
+  .glossary dt {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 1.75rem;
+    line-height: 1.05;
+    color: var(--palm);
+    margin-bottom: 0.3rem;
+  }
+  .glossary dd { margin: 0; max-width: 30rem; }
+  @media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+</style>

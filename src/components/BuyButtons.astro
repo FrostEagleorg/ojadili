@@ -1,0 +1,17 @@
+---
+import { BOOK } from '../config';
+interface Props { light?: boolean }
+const { light = false } = Astro.props;
+---
+<div class:list={['buy', { light }]}>
+  <a class="btn btn--solid" href={BOOK.paperback} rel="noopener">Buy the paperback on Amazon</a>
+  {BOOK.kindle && <a class="btn" href={BOOK.kindle} rel="noopener">Get it on Kindle</a>}
+</div>
+
+<style>
+  .buy { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .light .btn--solid { background: var(--palm); border-color: var(--palm); color: var(--night); }
+  .light .btn--solid:hover { background: transparent; color: var(--palm); }
+  .light .btn { color: var(--nzu); }
+  .light .btn:hover { background: var(--nzu); color: var(--night); }
+</style>

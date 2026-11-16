@@ -1,0 +1,114 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+  dark?: boolean;
+}
+const { title, description = SITE.description, dark = false } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.title}` : `${SITE.title}: The Back That Never Touched the Ground`;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const nav = [
+  { href: '/', label: 'The book' },
+  { href: '/story', label: 'The story' },
+  { href: '/characters', label: 'Characters' },
+  { href: '/families', label: 'Families & schools' },
+];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL('/images/cover.jpg', SITE.url).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#161a33" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class:list={['site-header', { dark }]}>
+      <div class="wrap bar">
+        <a class="mark" href="/" aria-label="Ojadili home">Ojadili</a>
+        <nav aria-label="Main">
+          <ul>
+            {nav.map((item) => (
+              <li>
+                <a href={item.href} aria-current={path === item.href ? 'page' : undefined}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap foot">
+        <p class="foot-mark">Ojadili</p>
+        <p>
+          Written by {SITE.author}, in Sydney.<br />
+          Questions, school orders or community events: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </p>
+        <p class="small">© {new Date().getFullYear()} {SITE.author}</p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header { position: relative; z-index: 2; }
+  .site-header.dark { background: var(--night); color: var(--nzu); }
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+  }
+  .mark {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 1.9rem;
+    letter-spacing: 0.01em;
+    color: inherit;
+    text-decoration: none;
+  }
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+  }
+  nav a {
+    color: inherit;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.2rem 0;
+    border-bottom: 2px solid transparent;
+  }
+  nav a:hover { border-bottom-color: currentColor; }
+  nav a[aria-current='page'] { border-bottom-color: var(--palm); }
+
+  .site-footer { background: var(--night); color: var(--nzu); }
+  .foot { padding-top: 3rem; padding-bottom: 3rem; display: grid; gap: 0.5rem; }
+  .foot a { color: var(--palm); }
+  .foot-mark { font-family: var(--display); font-weight: 900; font-size: 2.5rem; line-height: 1; margin-bottom: 0.75rem; }
+  .small { font-size: 0.875rem; opacity: 0.7; margin-top: 1rem; }
+</style>

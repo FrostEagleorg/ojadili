@@ -1,0 +1,97 @@
+---
+import Base from '../layouts/Base.astro';
+
+const people = [
+  {
+    name: 'Ojadili',
+    img: '/images/ojadili.jpg',
+    alt: 'Ojadili in his wrestling stance, white chalk under his eyes',
+    text: [
+      'The greatest wrestler Ụmụagụ has ever known. His back has never touched the ground, and he wears white chalk under his eyes when he fights.',
+      'He is a palm-wine tapper’s son. After his father fell from a palm tree, he made a promise to his chi, and he has been fighting ever since.',
+    ],
+  },
+  {
+    name: 'Chidi',
+    img: '/images/chidi.jpg',
+    alt: 'Chidi, a twelve-year-old boy in Sydney',
+    text: [
+      'Twelve years old, lives in Sydney, plays football. He didn’t ask for a story about a wrestler, but his Nne-nne is telling it anyway.',
+    ],
+  },
+  {
+    name: 'Nne-nne',
+    img: '/images/nne-nne.jpg',
+    alt: 'Chidi’s grandmother, Nne-nne, telling the story',
+    text: [
+      'Chidi’s grandmother, and the voice of the book. Every time the story moves to Ụmụagụ, it’s because she’s taking him there.',
+    ],
+  },
+];
+---
+<Base title="Characters" description="Meet Ojadili, Chidi and Nne-nne, and see the village of Ụmụagụ.">
+  <section class="section">
+    <div class="wrap">
+      <h1>Characters</h1>
+      <div class="people">
+        {people.map((p, i) => (
+          <article class:list={['person', { flip: i % 2 === 1 }]}>
+            <figure class="art"><img src={p.img} alt={p.alt} width="1073" height="1600" loading="lazy" /></figure>
+            <div class="prose">
+              <h2>{p.name}</h2>
+              {p.text.map((t) => <p>{t}</p>)}
+            </div>
+          </article>
+        ))}
+        <article class="person chi">
+          <div class="prose">
+            <h2>His chi</h2>
+            <p>
+              Every person has a chi. Ojadili made his promise to his, and it’s the last opponent he
+              meets in Ala Mmụọ. You’ll have to read the book for the rest.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section place">
+    <div class="wrap place-grid">
+      <div class="prose">
+        <h2>Ụmụagụ</h2>
+        <p>
+          Ojadili’s village, where the wrestling ground fills up whenever he fights. The book opens
+          with a map of it, so readers can follow him from home all the way to the edge of the
+          spirit world.
+        </p>
+      </div>
+      <figure class="art map"><img src="/images/map-umuagu.jpg" alt="A map of the village of Ụmụagụ" width="1600" height="1100" loading="lazy" /></figure>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .people { display: grid; gap: clamp(3rem, 7vw, 5rem); margin-top: 2.5rem; }
+  .person {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .person.flip figure { order: 2; }
+  .person figure { margin: 0; max-width: 24rem; }
+  .person.chi { grid-template-columns: 1fr; border-top: 2px solid var(--ink); padding-top: 2rem; }
+  .place { background: var(--nzu); padding-top: clamp(3.5rem, 8vw, 6rem) !important; }
+  .place-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+  .map { margin: 0; }
+  @media (max-width: 760px) {
+    .person, .place-grid { grid-template-columns: 1fr; }
+    .person.flip figure { order: 0; }
+  }
+</style>

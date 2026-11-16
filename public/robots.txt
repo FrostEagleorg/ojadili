@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ojadili.com/sitemap-index.xml

@@ -1,0 +1,111 @@
+@import '@fontsource-variable/big-shoulders';
+@import '@fontsource-variable/alegreya';
+@import '@fontsource-variable/alegreya/wght-italic.css';
+
+/*
+  Palette, named for the book's world:
+  night  – the moonlit wrestling ground
+  nzu    – white kaolin chalk, the marks under Ojadili's eyes
+  ufie   – camwood red
+  palm   – palm oil gold
+*/
+:root {
+  --night: #161a33;
+  --night-2: #232850;
+  --nzu: #edece8;
+  --paper: #f8f7f4;
+  --ink: #1d1c22;
+  --muted: #5a5866;
+  --ufie: #7c2416;
+  --palm: #e2a11b;
+
+  --display: 'Big Shoulders Variable', 'Arial Narrow', sans-serif;
+  --text: 'Alegreya Variable', Georgia, serif;
+
+  --measure: 34rem;
+  --wide: 68rem;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: clamp(1.0625rem, 0.4vw + 1rem, 1.1875rem);
+  line-height: 1.6;
+  font-variant-numeric: oldstyle-nums;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--ufie); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--palm);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+h1 { font-size: clamp(3rem, 8vw, 6rem); }
+h2 { font-size: clamp(2.25rem, 4.5vw, 3.5rem); }
+h3 { font-size: clamp(1.6rem, 2.4vw, 2rem); font-weight: 700; }
+
+p { margin: 0 0 1em; }
+
+.wrap { max-width: var(--wide); margin: 0 auto; padding: 0 var(--gutter); }
+.prose { max-width: var(--measure); }
+.prose > p:first-of-type { font-size: 1.15em; }
+
+.section { padding: clamp(3.5rem, 8vw, 6.5rem) 0; }
+.section + .section { padding-top: 0; }
+
+.skip {
+  position: absolute; left: -999px; top: 0;
+  background: var(--palm); color: var(--night); padding: 0.5rem 1rem;
+}
+.skip:focus { left: 1rem; top: 1rem; z-index: 10; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.02em;
+  padding: 0.55rem 1.4rem 0.6rem;
+  border: 2px solid currentColor;
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn--solid { background: var(--ufie); border-color: var(--ufie); color: var(--paper); }
+.btn--solid:hover { background: var(--night); border-color: var(--night); }
+
+/* Igbo words get the same quiet treatment everywhere */
+i[lang='ig'], em[lang='ig'] { font-style: italic; font-weight: 500; }
+
+/* Image placeholders until the real art goes in */
+.art { background: var(--nzu); border-radius: 6px; overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

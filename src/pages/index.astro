@@ -1,0 +1,248 @@
+---
+import Base from '../layouts/Base.astro';
+import BuyButtons from '../components/BuyButtons.astro';
+import { BOOK } from '../config';
+
+const chapters = [
+  { ig: 'Echi Dị Ime', en: 'Tomorrow is pregnant', text: 'Ojadili wins fight after fight in Ụmụagụ, and nobody can put his back on the ground.' },
+  { ig: 'Onye Ji Onye n’Ala', en: 'Whoever holds a man down', text: 'Where his strength came from: a palm-wine tapper’s son, a fall, and a promise made to his chi.' },
+  { ig: 'Ala Mmụọ', en: 'The land of spirits', text: 'With no one left to beat at home, Ojadili crosses into the spirit world looking for one more fight.' },
+];
+---
+<Base dark>
+  <section class="hero" data-hero>
+    <div class="wrap hero-grid">
+      <div class="hero-words">
+        <p class="call" lang="ig">Ifo chakpii!</p>
+        <p class="cue" data-cue hidden>That’s how Nne-nne starts every story. You answer.</p>
+        <button class="answer" type="button" data-answer hidden lang="ig">Wọo!</button>
+
+        <div class="opening" data-opening>
+          <p>
+            Once, in a village called Ụmụagụ, there was a wrestler whose back had never
+            touched the ground. His name was Ojadili.
+          </p>
+          <h1>
+            <span class="t1">{BOOK.title}</span>
+            <span class="t2">{BOOK.subtitle}</span>
+          </h1>
+          <p class="by">A graphic novel by Dubem Gbuzue</p>
+          <BuyButtons light />
+        </div>
+      </div>
+      <figure class="cover">
+        <img src="/images/cover.jpg" width="1073" height="1600" alt="The cover of Ojadili, Book One, showing Ojadili with white chalk under his eyes" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap book">
+      <div class="prose">
+        <h2>The book</h2>
+        <p>
+          Chidi is twelve, lives in Sydney and plays football. One evening his grandmother,
+          his Nne-nne, starts telling him a story the way stories have always been started at home.
+        </p>
+        <p>
+          It’s the story of Ojadili, the strongest wrestler Ụmụagụ ever had. He beats everyone
+          who faces him, and he keeps winning even as he loses his hold on everything else.
+          When there’s no one left to fight in the world of people, he goes looking for a fight
+          in the world of spirits, where the last one waiting for him is his own <i lang="ig">chi</i>.
+        </p>
+        <p>
+          It’s an old Igbo folktale, retold in full colour for Igbo kids who are growing up far
+          from home, and for anyone else who likes a good fight story.
+        </p>
+      </div>
+
+      <div class="chapters">
+        <h3>Three chapters</h3>
+        <ol>
+          {chapters.map((c) => (
+            <li>
+              <p class="ch-title"><span lang="ig">{c.ig}</span></p>
+              <p class="ch-en">{c.en}</p>
+              <p>{c.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap details">
+      <dl>
+        <div><dt>Format</dt><dd>{BOOK.trim}</dd></div>
+        <div><dt>ISBN</dt><dd>{BOOK.isbn}</dd></div>
+        <div><dt>Also inside</dt><dd>A map of Ụmụagụ and an activity page</dd></div>
+      </dl>
+      <BuyButtons />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap more">
+      <a href="/story">
+        <span class="more-title">The story behind it</span>
+        <span>The old tale, what I changed, and the Igbo words in the book.</span>
+      </a>
+      <a href="/characters">
+        <span class="more-title">Meet the characters</span>
+        <span>Ojadili, Chidi, Nne-nne, and the village of Ụmụagụ.</span>
+      </a>
+      <a href="/families">
+        <span class="more-title">For families and schools</span>
+        <span>Free activity page, reading together, and bulk orders.</span>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const hero = document.querySelector('[data-hero]');
+  const btn = hero?.querySelector<HTMLButtonElement>('[data-answer]');
+  const cue = hero?.querySelector<HTMLElement>('[data-cue]');
+  const opening = hero?.querySelector<HTMLElement>('[data-opening]');
+  const seen = (() => { try { return sessionStorage.getItem('ojadili-answered') === '1'; } catch { return false; } })();
+
+  if (hero && btn && cue && opening && !seen) {
+    hero.classList.add('waiting');
+    btn.hidden = false;
+    cue.hidden = false;
+    btn.addEventListener('click', () => {
+      hero.classList.remove('waiting');
+      hero.classList.add('answered');
+      btn.hidden = true;
+      cue.hidden = true;
+      try { sessionStorage.setItem('ojadili-answered', '1'); } catch {}
+      opening.querySelector<HTMLElement>('h1')?.setAttribute('tabindex', '-1');
+      opening.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
+    });
+  }
+</script>
+
+<style>
+  .hero {
+    background: var(--night);
+    color: var(--nzu);
+    padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .call {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(4.5rem, 13vw, 10.5rem);
+    line-height: 0.82;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.35em;
+    color: var(--nzu);
+    transition: font-size 700ms cubic-bezier(.2,.7,.2,1);
+  }
+  .answered .call { font-size: clamp(3.5rem, 7vw, 5.5rem); }
+  .cue { font-style: italic; color: #b9bbcf; margin-bottom: 1.25rem; }
+  .answer {
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1;
+    padding: 0.6rem 2rem 0.7rem;
+    border-radius: 999px;
+    border: 3px solid var(--palm);
+    background: var(--palm);
+    color: var(--night);
+    cursor: pointer;
+  }
+  .answer:hover { background: transparent; color: var(--palm); }
+
+  .opening > p:first-child { font-size: 1.3em; max-width: 30rem; }
+  .hero h1 { margin: 1.5rem 0 0.75rem; font-size: clamp(2.5rem, 5vw, 4rem); }
+  .t1 { display: block; color: var(--palm); font-size: 0.55em; font-weight: 700; margin-bottom: 0.25rem; }
+  .t2 { display: block; }
+  .by { color: #b9bbcf; margin-bottom: 1.75rem; }
+
+  .cover { margin: 0; }
+  .cover img {
+    border-radius: 4px;
+    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
+    transform: rotate(1.5deg);
+  }
+
+  /* The call-and-response moment: the opening waits for the answer */
+  .waiting .opening { display: none; }
+  .waiting .cover img { filter: brightness(0.55) saturate(0.7); transform: rotate(0deg) scale(0.97); }
+  .answered .opening { animation: rise 700ms cubic-bezier(.2,.7,.2,1) both; }
+  .answered .cover img { transition: filter 900ms ease, transform 900ms cubic-bezier(.2,.7,.2,1); }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  .book {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 5rem);
+  }
+  .chapters ol { list-style: none; counter-reset: ch; margin: 0; padding: 0; }
+  .chapters li {
+    counter-increment: ch;
+    position: relative;
+    padding: 1.1rem 0 1.1rem 3.5rem;
+    border-top: 2px solid var(--ink);
+  }
+  .chapters li::before {
+    content: counter(ch);
+    position: absolute;
+    left: 0;
+    top: 0.85rem;
+    font-family: var(--display);
+    font-weight: 900;
+    font-size: 2.75rem;
+    line-height: 1;
+    color: var(--ufie);
+  }
+  .chapters li p { margin: 0; }
+  .ch-title { font-family: var(--display); font-weight: 800; font-size: 1.75rem; line-height: 1.05; }
+  .ch-en { font-style: italic; color: var(--muted); margin-bottom: 0.4rem !important; }
+
+  .details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    background: var(--nzu);
+    border-radius: 8px;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  dl { margin: 0; display: flex; flex-wrap: wrap; gap: 1.25rem 3rem; }
+  dt { font-size: 0.9rem; color: var(--muted); }
+  dd { margin: 0; font-weight: 600; }
+
+  .more {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .more a {
+    display: grid;
+    gap: 0.35rem;
+    color: var(--ink);
+    text-decoration: none;
+    padding-top: 1rem;
+    border-top: 2px solid var(--ink);
+  }
+  .more-title { font-family: var(--display); font-weight: 800; font-size: 1.9rem; line-height: 1; color: var(--ufie); }
+  .more a:hover .more-title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
+
+  @media (max-width: 760px) {
+    .hero-grid, .book, .more { grid-template-columns: 1fr; }
+    .cover { max-width: 22rem; }
+    .waiting .cover { display: none; }
+  }
+</style>
