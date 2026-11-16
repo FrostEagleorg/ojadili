@@ -6,9 +6,10 @@ interface Props {
   title?: string;
   description?: string;
   dark?: boolean;
+  seoTitle?: string;
 }
-const { title, description = SITE.description, dark = false } = Astro.props;
-const pageTitle = title ? `${title} | ${SITE.title}` : `${SITE.title}: The Back That Never Touched the Ground`;
+const { title, description = SITE.description, dark = false, seoTitle } = Astro.props;
+const pageTitle = seoTitle ?? (title ? `${title} | ${SITE.title}` : `${SITE.title}: The Back That Never Touched the Ground`);
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 
@@ -35,6 +36,7 @@ const nav = [
     <meta property="og:image" content={new URL('/images/cover.jpg', SITE.url).href} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#161a33" />
+    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

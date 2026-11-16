@@ -8,8 +8,46 @@ const chapters = [
   { ig: 'Onye Ji Onye n’Ala', en: 'Whoever holds a man down', text: 'Where his strength came from: a palm-wine tapper’s son, a fall, and a promise made to his chi.' },
   { ig: 'Ala Mmụọ', en: 'The land of spirits', text: 'With no one left to beat at home, Ojadili crosses into the spirit world looking for one more fight.' },
 ];
+const ld = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Book',
+      '@id': 'https://ojadili.com/#book',
+      name: 'Ojadili, Book One: The Back That Never Touched the Ground',
+      alternateName: 'Ojadili',
+      description: 'A graphic novel rooted in the Igbo folktale of Ojadili, the wrestler who fought his chi. For ages 8 to 12.',
+      author: { '@id': 'https://ojadili.com/#author' },
+      isbn: BOOK.isbn,
+      bookFormat: 'https://schema.org/Paperback',
+      numberOfPages: 96,
+      inLanguage: 'en',
+      genre: ['Graphic novel', 'Folklore', "Children's fiction"],
+      about: ['Igbo folklore', 'Igbo culture', 'Ojadili', 'Nigerian folktales'],
+      typicalAgeRange: '8-12',
+      image: 'https://ojadili.com/images/cover.jpg',
+      url: 'https://ojadili.com/',
+      sameAs: [BOOK.paperback],
+      offers: { '@type': 'Offer', url: BOOK.paperback, availability: 'https://schema.org/InStock' },
+    },
+    {
+      '@type': 'Person',
+      '@id': 'https://ojadili.com/#author',
+      name: 'Dubem Gbuzue',
+      url: 'https://ojadili.com/story',
+      sameAs: ['https://frosteagle.com', 'https://www.linkedin.com/in/davidgbuzue/'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://ojadili.com/#website',
+      name: 'Ojadili',
+      url: 'https://ojadili.com/',
+    },
+  ],
+};
 ---
-<Base dark>
+<Base dark seoTitle="Ojadili: An Igbo Folktale Graphic Novel for Kids | Book One" description="Ojadili, Book One: The Back That Never Touched the Ground. The Igbo folktale of the wrestler who fought his chi, retold as a full-colour graphic novel for ages 8 to 12.">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
   <section class="hero" data-hero>
     <div class="wrap hero-grid">
       <div class="hero-words">
