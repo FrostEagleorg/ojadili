@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import BuyButtons from '../components/BuyButtons.astro';
+import MapHero from '../components/MapHero.astro';
 import { BOOK } from '../config';
 
 const chapters = [
@@ -48,34 +49,13 @@ const ld = {
 ---
 <Base dark seoTitle="Ojadili: An Igbo Folktale Graphic Novel for Kids | Book One" description="Ojadili, Book One: The Back That Never Touched the Ground. The Igbo folktale of the wrestler who fought his chi, retold as a full-colour graphic novel for ages 8 to 12.">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
-  <section class="hero" data-hero>
-    <div class="wrap hero-grid">
-      <div class="hero-words">
-        <p class="call" lang="ig">Ifo chakpii!</p>
-        <p class="cue" data-cue hidden>That’s how Nne-nne starts every story. You answer.</p>
-        <button class="answer" type="button" data-answer hidden lang="ig">Wọo!</button>
-
-        <div class="opening" data-opening>
-          <p>
-            Once, in a village called Ụmụagụ, there was a wrestler whose back had never
-            touched the ground. His name was Ojadili.
-          </p>
-          <h1>
-            <span class="t1">{BOOK.title}</span>
-            <span class="t2">{BOOK.subtitle}</span>
-          </h1>
-          <p class="by">A graphic novel by Dubem Gbuzue</p>
-          <BuyButtons light />
-        </div>
-      </div>
-      <figure class="cover">
-        <img src="/images/cover.jpg" width="1100" height="1618" alt="The cover of Ojadili, Book One: Ojadili carries a wrestler on his shoulders while masked spirits watch" />
-      </figure>
-    </div>
-  </section>
+  <MapHero />
 
   <section class="section">
     <div class="wrap book">
+      <figure class="book-cover">
+        <img src="/images/cover.jpg" width="1100" height="1618" alt="The cover of Ojadili, Book One: Ojadili carries a wrestler on his shoulders while masked spirits watch" loading="lazy" />
+      </figure>
       <div class="prose">
         <h2>The book</h2>
         <p>
@@ -142,91 +122,13 @@ const ld = {
   </section>
 </Base>
 
-<script>
-  const hero = document.querySelector('[data-hero]');
-  const btn = hero?.querySelector<HTMLButtonElement>('[data-answer]');
-  const cue = hero?.querySelector<HTMLElement>('[data-cue]');
-  const opening = hero?.querySelector<HTMLElement>('[data-opening]');
-  const seen = (() => { try { return sessionStorage.getItem('ojadili-answered') === '1'; } catch { return false; } })();
-
-  if (hero && btn && cue && opening && !seen) {
-    hero.classList.add('waiting');
-    btn.hidden = false;
-    cue.hidden = false;
-    btn.addEventListener('click', () => {
-      hero.classList.remove('waiting');
-      hero.classList.add('answered');
-      btn.hidden = true;
-      cue.hidden = true;
-      try { sessionStorage.setItem('ojadili-answered', '1'); } catch {}
-      opening.querySelector<HTMLElement>('h1')?.setAttribute('tabindex', '-1');
-      opening.querySelector<HTMLElement>('h1')?.focus({ preventScroll: true });
-    });
-  }
-</script>
 
 <style>
-  .hero {
-    background: var(--night);
-    color: var(--nzu);
-    padding: clamp(2rem, 6vw, 5rem) 0 clamp(3rem, 7vw, 6rem);
-    overflow: hidden;
-  }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-    gap: clamp(2rem, 6vw, 5rem);
-    align-items: center;
-  }
-  .call {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: clamp(4.5rem, 13vw, 10.5rem);
-    line-height: 0.82;
-    letter-spacing: -0.01em;
-    margin: 0 0 0.35em;
-    color: var(--nzu);
-    transition: font-size 700ms cubic-bezier(.2,.7,.2,1);
-  }
-  .answered .call { font-size: clamp(3.5rem, 7vw, 5.5rem); }
-  .cue { font-style: italic; color: #b9bbcf; margin-bottom: 1.25rem; }
-  .answer {
-    font-family: var(--display);
-    font-weight: 900;
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
-    line-height: 1;
-    padding: 0.6rem 2rem 0.7rem;
-    border-radius: 999px;
-    border: 3px solid var(--palm);
-    background: var(--palm);
-    color: var(--night);
-    cursor: pointer;
-  }
-  .answer:hover { background: transparent; color: var(--palm); }
-
-  .opening > p:first-child { font-size: 1.3em; max-width: 30rem; }
-  .hero h1 { margin: 1.5rem 0 0.75rem; font-size: clamp(2.5rem, 5vw, 4rem); }
-  .t1 { display: block; color: var(--palm); font-size: 0.55em; font-weight: 700; margin-bottom: 0.25rem; }
-  .t2 { display: block; }
-  .by { color: #b9bbcf; margin-bottom: 1.75rem; }
-
-  .cover { margin: 0; }
-  .cover img {
-    border-radius: 4px;
-    box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.6);
-    transform: rotate(1.5deg);
-  }
-
-  /* The call-and-response moment: the opening waits for the answer */
-  .waiting .opening { display: none; }
-  .waiting .cover img { filter: brightness(0.55) saturate(0.7); transform: rotate(0deg) scale(0.97); }
-  .answered .opening { animation: rise 700ms cubic-bezier(.2,.7,.2,1) both; }
-  .answered .cover img { transition: filter 900ms ease, transform 900ms cubic-bezier(.2,.7,.2,1); }
-  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-
+  .book-cover { margin: 0; }
+  .book-cover img { border-radius: 4px; box-shadow: 0 24px 48px -20px rgba(0,0,0,0.45); }
   .book {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr) minmax(0, 1fr);
     gap: clamp(2rem, 6vw, 5rem);
   }
   .chapters ol { list-style: none; counter-reset: ch; margin: 0; padding: 0; }
@@ -283,8 +185,7 @@ const ld = {
   .more a:hover .more-title { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.15em; }
 
   @media (max-width: 760px) {
-    .hero-grid, .book, .more { grid-template-columns: 1fr; }
-    .cover { max-width: 22rem; }
-    .waiting .cover { display: none; }
+    .book, .more { grid-template-columns: 1fr; }
+    .book-cover { max-width: 16rem; }
   }
 </style>
