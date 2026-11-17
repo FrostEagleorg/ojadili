@@ -3,53 +3,69 @@ import BuyButtons from './BuyButtons.astro';
 import { BOOK } from '../config';
 
 // Positions are percentages of the map image (x from left, y from top).
-// Listed in journey order: from home, up the red path, to the gates of Ala Mmụọ.
+// Listed in journey order: home first, then up the red path to the gates of Ala Mmụọ.
 const places = [
   {
-    id: 'umuagu', name: 'Ụmụagụ', en: 'Ojadili’s village', x: 51, y: 84, zoom: 2.6,
-    text: 'Home. The wrestling ground in the middle of the village is where Ojadili became the wrestler whose back never touched the ground, and where the story begins.',
+    id: 'umuagu', name: 'Ụmụagụ', en: 'Ojadili’s home', x: 51, y: 84, zoom: 2.6,
+    text: 'Home turf. That red circle is the wrestling ground, where nobody (and we mean nobody) has ever put Ojadili’s back on the ground.',
     img: '/images/ww/ww-ben.jpg', alt: 'Ojadili lifts a wrestler above his head in Ụmụagụ',
     link: { href: '/characters', label: 'Meet the people of Ụmụagụ' },
   },
   {
     id: 'amaeke', name: 'Amaeke', en: 'Across the river', x: 19, y: 87.5, zoom: 2.8,
-    text: 'Ụmụagụ’s neighbour, on the other side of the river.',
+    text: 'Ụmụagụ’s next-door neighbour, just over the river.',
     link: { href: '/characters', label: 'Meet the characters' },
   },
   {
-    id: 'palm-grove', name: 'The palm grove', en: 'Palm wine and palm trees', x: 80, y: 85.5, zoom: 2.8,
-    text: 'Ojadili’s father was a palm-wine tapper. In Chapter 2, a fall from a palm tree changes everything.',
-    link: { href: '/story', label: 'Read the story behind it' },
+    id: 'palm-grove', name: 'The palm grove', en: 'Where palm wine comes from', x: 80, y: 85.5, zoom: 2.8,
+    text: 'Ojadili’s dad was a palm-wine tapper, climbing trees like these every day. Chapter 2 is about the day he fell.',
+    link: { href: '/story', label: 'The story behind the book' },
   },
   {
-    id: 'villages', name: 'Nine villages', en: 'Nobody here could throw him', x: 22.5, y: 71, zoom: 2.4,
-    text: 'In nine villages, Ojadili’s back has never touched the ground. Every wrestler who tried ended up looking at the sky.',
+    id: 'umueke', name: 'Ụmụeke', en: 'Named after Eke market day', x: 19, y: 71, zoom: 2.8,
+    text: 'An Igbo week is only four days long: Eke, Orie, Afọ, Nkwọ. Almost every Igbo community has a market named after one of them.',
+    link: { href: '/story#words', label: 'More Igbo words' },
+  },
+  {
+    id: 'umuorie', name: 'Ụmụorie', en: 'Named after Orie market day', x: 34.5, y: 68, zoom: 2.8,
+    text: 'Their best wrestlers came to Ụmụagụ to try their luck against Ojadili. Spoiler: their backs touched the ground.',
     img: '/images/ww/ww-hercules.jpg', alt: 'Ojadili throws a wrestler across his hip as the crowd watches',
     link: { href: '/who-would-win', label: 'Who would win?' },
   },
   {
+    id: 'umuafo', name: 'Ụmụafọ', en: 'Named after Afọ market day', x: 60.5, y: 69.5, zoom: 2.8,
+    text: 'Nine villages, nine sets of challengers, zero wins against Ojadili. Ụmụafọ tried too.',
+    link: { href: '/who-would-win', label: 'Pick your own fight' },
+  },
+  {
+    id: 'umunkwo', name: 'Ụmụnkwọ', en: 'Named after Nkwọ market day', x: 81.5, y: 72.5, zoom: 2.8,
+    text: 'Nkwọ is the last day of the Igbo week. Bonus fact: in some towns every market day comes in a big and a small version, ukwu and nta, so the full cycle takes eight days.',
+    link: { href: '/story#words', label: 'More Igbo words' },
+  },
+  {
     id: 'seven-forests', name: 'Seven forests', en: 'The road out of Ụmụagụ', x: 50, y: 46.5, zoom: 2,
-    text: 'When nobody at home can throw him, Ojadili goes looking for someone who can. The red path runs through seven forests on the way.',
+    text: 'Nobody at home can beat him, so Ojadili goes looking for someone who can. Seven forests. No shortcuts.',
     link: { href: '/characters', label: 'Meet Ojadili' },
   },
   {
-    id: 'last-forest', name: 'The last forest', en: 'Grey, and full of ghosts', x: 60, y: 35, zoom: 2.4,
-    text: 'The last of the seven forests is grey and quiet, and ghosts drift between the trees.',
+    id: 'last-forest', name: 'The last forest', en: 'Grey, quiet, full of ghosts', x: 60, y: 35, zoom: 2.4,
+    text: 'The seventh forest. Grey trees, no birds, and ghosts drifting between the branches. Keep walking.',
     link: { href: '/story#words', label: 'Igbo words for spirits' },
   },
   {
     id: 'river', name: 'The fourteenth river', en: 'Where Eke Mmiri lives', x: 50.5, y: 28.5, zoom: 2.8,
-    text: 'Fourteen rivers stand between Ụmụagụ and the spirit world. In the last one lives Eke Mmiri, the River Spirit, and Ojadili has to wrestle it.',
+    text: 'Fourteen rivers. In the last one lives Eke Mmiri, the River Spirit: a giant python. Ojadili wrestles it. In the water. SPLOOSH.',
     img: '/images/ww/fight-python.jpg', alt: 'Ojadili wrestles the masked river python, SPLOOSH',
     link: { href: '/story#words', label: 'Who is Eke Mmiri?' },
   },
   {
     id: 'ala-mmuo', name: 'Ala Mmụọ', en: 'The land of spirits', x: 49.5, y: 17.5, zoom: 2.2,
-    text: 'Past the last river are the carved gates of the spirit world. Ojadili goes in looking for one more fight, and the spirits are waiting.',
+    text: 'Ojadili walks through the gates of the spirit world, looking for one more fight. Good idea? You’ll have to read it to find out.',
     img: '/images/ww/fight-spirit.jpg', alt: 'Ojadili throws a spirit with many faces, KRAAASH',
     link: { href: '/who-would-win', label: 'See who he fights' },
   },
 ];
+const total = places.length;
 ---
 <section class="world" data-world aria-label="The world of Ojadili: an interactive map">
   <div class="viewport" data-viewport>
@@ -59,11 +75,11 @@ const places = [
         srcset="/images/map-800.jpg 800w, /images/map-1400.jpg 1400w"
         sizes="(max-width: 700px) 200vw, 1400px"
         width="1400" height="2043"
-        alt="The world of Ojadili: Ụmụagụ, Amaeke and the palm grove at the bottom, nine villages, seven forests, the last forest, the fourteenth river, and the gates of Ala Mmụọ at the top"
+        alt="The world of Ojadili: Ụmụagụ, Amaeke and the palm grove at the bottom, villages, seven forests, the last forest, the fourteenth river, and the gates of Ala Mmụọ at the top"
         draggable="false"
         fetchpriority="high"
       />
-      {places.map((p, i) => (
+      {places.map((p) => (
         <button
           class="spot"
           type="button"
@@ -97,29 +113,38 @@ const places = [
   </div>
 
   <aside class="card place-card" id="place-card" data-card aria-live="polite" tabindex="-1" hidden>
+    <span class="pointer" aria-hidden="true" data-pointer></span>
     <button class="close" type="button" data-close aria-label="Back to the whole map">×</button>
     {places.map((p, i) => (
       <article class="place" data-place={p.id} hidden>
         {p.img && <img src={p.img} alt={p.alt} loading="lazy" />}
-        <p class="step">Stop {i + 1} of {places.length} on the road</p>
+        <p class="step">Stop {i + 1} of {total}</p>
         <h2 lang="ig">{p.name}</h2>
         <p class="en">{p.en}</p>
-        <p>{p.text}</p>
+        <p class="text">{p.text}</p>
         <a class="go" href={p.link.href}>{p.link.label}</a>
       </article>
     ))}
     <div class="nav">
-      <button class="btn small" type="button" data-prev>Back down the path</button>
-      <button class="btn small solid" type="button" data-next>Further up the path</button>
+      <button class="btn small" type="button" data-prev>Previous</button>
+      <button class="btn small solid" type="button" data-next>Next stop</button>
     </div>
   </aside>
 
   <div class="controls" data-controls>
+    <span class="found" data-found>Found <b data-count>0</b> of {total}</span>
     <button type="button" data-zoom-in aria-label="Zoom in">+</button>
     <button type="button" data-zoom-out aria-label="Zoom out">−</button>
     <button type="button" class="whole" data-reset>Whole map</button>
   </div>
-  <p class="hint">Tap a glowing spot or drag to look around.</p>
+  <p class="hint">Find all {total} places hidden on the map.</p>
+
+  <div class="done" data-done hidden>
+    <p class="done-title">You explored the whole world of Ojadili.</p>
+    <p>So what happens behind the gates of Ala Mmụọ? That part’s in the book.</p>
+    <a class="btn btn--solid" href={BOOK.paperback} rel="noopener">Get the book</a>
+    <button class="done-x" type="button" data-done-close aria-label="Close">×</button>
+  </div>
 </section>
 
 <script>
@@ -132,19 +157,51 @@ const places = [
     const spots = [...world.querySelectorAll<HTMLButtonElement>('[data-spot]')];
     const placeEls = [...world.querySelectorAll<HTMLElement>('[data-place]')];
     const card = world.querySelector<HTMLElement>('[data-card]')!;
+    const pointer = world.querySelector<HTMLElement>('[data-pointer]')!;
     const prev = world.querySelector<HTMLButtonElement>('[data-prev]')!;
     const next = world.querySelector<HTMLButtonElement>('[data-next]')!;
+    const countEl = world.querySelector<HTMLElement>('[data-count]')!;
+    const done = world.querySelector<HTMLElement>('[data-done]')!;
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const wide = () => window.matchMedia('(min-width: 901px)').matches;
+    const FLY_MS = reduce ? 0 : 900;
 
     stage.style.width = W + 'px';
     stage.style.height = H + 'px';
 
-    let s = 1, tx = 0, ty = 0, current = -1, dragged = false;
+    let s = 1, tx = 0, ty = 0, current = -1, dragged = false, flyTimer: number | undefined;
     const vw = () => viewport.clientWidth;
     const vh = () => viewport.clientHeight;
     const fitScale = () => Math.min(vw() / W, vh() / H) * 0.96;
     const maxScale = () => fitScale() * 4;
+
+    // Places found, remembered for this visit.
+    let found = new Set<string>();
+    try { found = new Set(JSON.parse(sessionStorage.getItem('ojadili-found') || '[]')); } catch {}
+    const renderFound = () => {
+      spots.forEach((b) => b.classList.toggle('visited', found.has(b.dataset.spot!)));
+      countEl.textContent = String(found.size);
+      world.classList.toggle('all-found', found.size === spots.length);
+    };
+    renderFound();
+
+    // Pin the card next to the open spot (wide screens only; phones use a sheet).
+    const placeCard = () => {
+      if (current === -1 || !wide()) { card.style.left = card.style.top = ''; return; }
+      const sp = spots[current];
+      const sx = tx + (Number(sp.dataset.x) / 100) * W * s;
+      const sy = ty + (Number(sp.dataset.y) / 100) * H * s;
+      const cw = card.offsetWidth, ch = card.offsetHeight, gap = 30, m = 12;
+      const right = sx + gap + cw <= vw() - m;
+      const left = right ? sx + gap : Math.max(m, sx - gap - cw);
+      const top = Math.min(Math.max(m, sy - ch / 2), vh() - ch - m);
+      card.style.left = left + 'px';
+      card.style.top = top + 'px';
+      card.classList.toggle('flip', !right);
+      pointer.style.top = Math.min(Math.max(18, sy - top), ch - 18) + 'px';
+      const offscreen = sx < 0 || sx > vw() || sy < 0 || sy > vh();
+      card.classList.toggle('lost', offscreen);
+    };
 
     const apply = (animate = false) => {
       stage.classList.toggle('flying', animate && !reduce);
@@ -153,18 +210,21 @@ const places = [
       const zoomed = s > fitScale() * 1.05;
       viewport.style.touchAction = zoomed ? 'none' : 'pan-y';
       world.classList.toggle('zoomed', zoomed);
+      if (animate && current !== -1) {
+        // Let the map finish flying before the card appears beside the spot.
+        card.classList.add('wait');
+        clearTimeout(flyTimer);
+        flyTimer = window.setTimeout(() => { placeCard(); card.classList.remove('wait'); }, FLY_MS * 0.85);
+      } else {
+        placeCard();
+      }
     };
 
-    // Keep part of the map on screen whatever happens.
     const clamp = () => {
       const mw = W * s, mh = H * s;
       const slackX = vw() * 0.35, slackY = vh() * 0.35;
-      const minX = Math.min(vw() - mw, (vw() - mw) / 2) - slackX;
-      const maxX = Math.max(0, (vw() - mw) / 2) + slackX;
-      const minY = Math.min(vh() - mh, (vh() - mh) / 2) - slackY;
-      const maxY = Math.max(0, (vh() - mh) / 2) + slackY;
-      tx = Math.min(maxX, Math.max(minX, tx));
-      ty = Math.min(maxY, Math.max(minY, ty));
+      tx = Math.min(Math.max(0, (vw() - mw) / 2) + slackX, Math.max(Math.min(vw() - mw, (vw() - mw) / 2) - slackX, tx));
+      ty = Math.min(Math.max(0, (vh() - mh) / 2) + slackY, Math.max(Math.min(vh() - mh, (vh() - mh) / 2) - slackY, ty));
     };
 
     const fit = (animate = true) => {
@@ -174,7 +234,6 @@ const places = [
       apply(animate);
     };
 
-    // Zoom while keeping the map point under (cx, cy) still.
     const zoomAt = (newS: number, cx: number, cy: number, animate = false) => {
       newS = Math.min(maxScale(), Math.max(fitScale(), newS));
       const mx = (cx - tx) / s, my = (cy - ty) / s;
@@ -188,8 +247,8 @@ const places = [
     const flyTo = (xPct: number, yPct: number, zoom: number) => {
       s = Math.min(maxScale(), fitScale() * zoom);
       const px = (xPct / 100) * W, py = (yPct / 100) * H;
-      // Leave room for the place card: to the right on wide screens, below on phones.
-      const cx = wide() ? vw() * 0.36 : vw() / 2;
+      // Leave room for the card: beside the spot on wide screens, above the sheet on phones.
+      const cx = wide() ? vw() * 0.38 : vw() / 2;
       const cy = wide() ? vh() / 2 : vh() * 0.27;
       tx = cx - px * s;
       ty = cy - py * s;
@@ -206,6 +265,14 @@ const places = [
       world.classList.add('exploring');
       prev.disabled = i === 0;
       next.disabled = i === spots.length - 1;
+      const before = found.size;
+      found.add(sp.dataset.spot!);
+      try { sessionStorage.setItem('ojadili-found', JSON.stringify([...found])); } catch {}
+      renderFound();
+      if (before < spots.length && found.size === spots.length) {
+        // Zoom back out to the whole world for the finale.
+        setTimeout(() => { close(); done.hidden = false; }, FLY_MS + 2200);
+      }
       flyTo(Number(sp.dataset.x), Number(sp.dataset.y), Number(sp.dataset.zoom));
     };
 
@@ -225,9 +292,14 @@ const places = [
     next.addEventListener('click', () => current < spots.length - 1 && open(current + 1));
     world.querySelector('[data-close]')!.addEventListener('click', close);
     world.querySelector('[data-reset]')!.addEventListener('click', close);
+    world.querySelector('[data-done-close]')!.addEventListener('click', () => (done.hidden = true));
     world.querySelector('[data-zoom-in]')!.addEventListener('click', () => zoomAt(s * 1.5, vw() / 2, vh() / 2, true));
     world.querySelector('[data-zoom-out]')!.addEventListener('click', () => zoomAt(s / 1.5, vw() / 2, vh() / 2, true));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && current !== -1) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!done.hidden) done.hidden = true;
+      else if (current !== -1) close();
+    });
 
     // Drag to pan, two fingers to pinch.
     const pointers = new Map<number, { x: number; y: number }>();
@@ -255,7 +327,6 @@ const places = [
       if (start && pointers.size === 1) {
         const dx = e.clientX - start.x, dy = e.clientY - start.y;
         if (!dragged && Math.hypot(dx, dy) < 6) return;
-        // At the whole-map view on a phone, one finger scrolls the page instead.
         if (e.pointerType === 'touch' && !world.classList.contains('zoomed')) return;
         dragged = true;
         try { viewport.setPointerCapture(e.pointerId); } catch {}
@@ -273,7 +344,6 @@ const places = [
     viewport.addEventListener('pointerup', end);
     viewport.addEventListener('pointercancel', end);
 
-    // Ctrl/⌘ + scroll or a trackpad pinch zooms; plain scrolling still moves down the page.
     viewport.addEventListener('wheel', (e) => {
       if (!e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
@@ -336,7 +406,7 @@ const places = [
   .waiting .stage img { filter: brightness(0.5) saturate(0.7); }
   .answered .stage img { transition: filter 900ms ease; }
 
-  /* Spots keep the same on-screen size at any zoom */
+  /* Spots keep the same size on screen at any zoom */
   .spot { position: absolute; width: 0; height: 0; border: 0; padding: 0; background: none; cursor: pointer; }
   .spot:focus-visible { outline: none; }
   .dot {
@@ -360,15 +430,21 @@ const places = [
     border: 3px solid var(--night);
     animation: pulse 2.4s ease-out infinite;
   }
+  /* Found places: a white chalk (nzu) mark with a tick, no pulse */
+  .spot.visited .dot::before {
+    background: var(--nzu) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23161a33' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 70% no-repeat;
+    animation: none;
+  }
   .spot:hover .dot::before,
   .spot:focus-visible .dot::before,
   .spot[aria-pressed='true'] .dot::before {
-    background: var(--ufie);
+    background-color: var(--ufie);
     border-color: var(--nzu);
     width: 1.5rem;
     height: 1.5rem;
     animation: none;
   }
+  .spot[aria-pressed='true'] .dot::before { background-image: none; }
   .spot:focus-visible .dot { outline: 3px solid var(--palm); outline-offset: 2px; }
   .tip {
     position: absolute;
@@ -388,7 +464,8 @@ const places = [
     pointer-events: none;
     transition: opacity 150ms;
   }
-  .spot:hover .tip, .spot:focus-visible .tip, .spot[aria-pressed='true'] .tip { opacity: 1; }
+  .spot:hover .tip, .spot:focus-visible .tip { opacity: 1; }
+  .exploring .spot[aria-pressed='true'] .tip { opacity: 0; }
   .waiting .spot { visibility: hidden; }
   @keyframes pulse {
     0% { box-shadow: 0 0 0 0 rgba(226, 161, 27, 0.75); }
@@ -400,11 +477,11 @@ const places = [
   .card {
     position: absolute;
     z-index: 2;
-    background: rgba(22, 26, 51, 0.93);
+    background: rgba(22, 26, 51, 0.95);
     backdrop-filter: blur(6px);
-    border: 1px solid rgba(237, 236, 232, 0.12);
+    border: 1px solid rgba(237, 236, 232, 0.14);
     border-radius: 14px;
-    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.7);
+    box-shadow: 0 20px 50px -20px rgba(0, 0, 0, 0.75);
   }
   .intro {
     left: clamp(1rem, 3vw, 2.5rem);
@@ -443,40 +520,62 @@ const places = [
   .t2 { display: block; }
   .by { color: #b9bbcf; margin-bottom: 1.1rem; font-size: 0.95rem; }
 
+  /* The place card, pinned beside its spot on wide screens */
   .place-card {
-    right: clamp(1rem, 3vw, 2.5rem);
-    top: 50%;
-    transform: translateY(-50%);
-    width: min(25rem, 32vw);
-    max-height: calc(100% - 2rem);
-    overflow-y: auto;
-    padding: 1.25rem 1.5rem;
+    width: 20rem;
+    padding: 1rem 1.15rem 1.05rem;
     outline: none;
+    transition: opacity 200ms;
   }
-  .place { animation: rise 380ms cubic-bezier(.2, .7, .2, 1) both; }
-  .place img { border-radius: 8px; margin-bottom: 0.9rem; max-height: 13rem; width: 100%; object-fit: cover; }
-  .step { font-size: 0.85rem; color: #b9bbcf; margin: 0 0 0.2rem; }
-  .place h2 { font-size: clamp(1.9rem, 2.8vw, 2.6rem); margin: 0 0 0.1rem; color: var(--palm); padding-right: 2.5rem; }
-  .en { font-style: italic; color: #b9bbcf; margin-bottom: 0.6rem; }
-  .go { color: var(--palm); font-weight: 600; }
+  .place-card.wait, .place-card.lost { opacity: 0; pointer-events: none; }
+  .pointer {
+    position: absolute;
+    left: -9px;
+    width: 18px;
+    height: 18px;
+    margin-top: -9px;
+    background: rgba(22, 26, 51, 0.95);
+    border-left: 1px solid rgba(237, 236, 232, 0.14);
+    border-bottom: 1px solid rgba(237, 236, 232, 0.14);
+    transform: rotate(45deg);
+  }
+  .place-card.flip .pointer { left: auto; right: -9px; transform: rotate(225deg); }
+  .place { animation: rise 320ms cubic-bezier(.2, .7, .2, 1) both; }
+  .place img { border-radius: 8px; margin-bottom: 0.75rem; max-height: 9.5rem; width: 100%; object-fit: cover; }
+  .step {
+    display: inline-block;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    color: var(--night);
+    background: var(--palm);
+    border-radius: 999px;
+    padding: 0.05rem 0.6rem 0.1rem;
+    margin: 0 0 0.4rem;
+  }
+  .place h2 { font-size: 2.1rem; margin: 0; color: var(--nzu); padding-right: 2.5rem; }
+  .en { font-style: italic; color: var(--palm); margin: 0.1rem 0 0.5rem; }
+  .text { font-size: 1.02rem; line-height: 1.5; margin-bottom: 0.6rem; }
+  .go { color: var(--palm); font-weight: 600; font-size: 0.98rem; }
   .close {
     position: absolute;
-    top: 0.6rem;
-    right: 0.6rem;
+    top: 0.55rem;
+    right: 0.55rem;
     z-index: 1;
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 50%;
     border: 0;
     background: var(--night-2);
     color: var(--nzu);
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 1;
     cursor: pointer;
   }
   .close:hover { background: var(--palm); color: var(--night); }
-  .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 1.1rem; }
-  .btn.small { font-size: 1rem; padding: 0.45rem 0.8rem 0.5rem; color: var(--nzu); border-color: rgba(237, 236, 232, 0.5); }
+  .nav { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.9rem; }
+  .btn.small { font-size: 1rem; padding: 0.4rem 0.8rem 0.45rem; color: var(--nzu); border-color: rgba(237, 236, 232, 0.5); }
   .btn.small:hover { background: var(--nzu); color: var(--night); }
   .btn.small.solid { background: var(--palm); border-color: var(--palm); color: var(--night); }
   .btn.small.solid:hover { background: transparent; color: var(--palm); }
@@ -489,12 +588,22 @@ const places = [
     bottom: 1rem;
     transform: translateX(-50%);
     display: flex;
+    align-items: center;
     gap: 0.4rem;
     padding: 0.35rem;
-    background: rgba(22, 26, 51, 0.93);
-    border: 1px solid rgba(237, 236, 232, 0.12);
+    background: rgba(22, 26, 51, 0.95);
+    border: 1px solid rgba(237, 236, 232, 0.14);
     border-radius: 999px;
   }
+  .found {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 0 0.75rem 0 0.9rem;
+    white-space: nowrap;
+  }
+  .found b { color: var(--palm); font-weight: 900; }
+  .all-found .found { color: var(--palm); }
   .controls button {
     min-width: 2.6rem;
     height: 2.6rem;
@@ -535,10 +644,44 @@ const places = [
     margin-bottom: 0.75rem;
     animation: pulse 2.4s ease-out infinite;
   }
-  .waiting .controls, .waiting .hint, .exploring .hint, .zoomed .hint { opacity: 0; pointer-events: none; }
-  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .waiting .controls, .waiting .hint, .exploring .hint, .zoomed .hint, .all-found .hint { opacity: 0; pointer-events: none; }
 
-  /* Phones and small tablets: title at the bottom, place card as a sheet */
+  /* Everything found */
+  .done {
+    position: absolute;
+    z-index: 4;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(24rem, calc(100% - 2rem));
+    text-align: center;
+    background: var(--palm);
+    color: var(--night);
+    border-radius: 16px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.8);
+    animation: pop 450ms cubic-bezier(.2, .9, .3, 1.3) both;
+  }
+  .done-title { font-family: var(--display); font-weight: 900; font-size: 2rem; line-height: 1; margin-bottom: 0.6rem; }
+  .done .btn--solid { background: var(--night); border-color: var(--night); color: var(--nzu); margin-top: 0.25rem; }
+  .done .btn--solid:hover { background: transparent; color: var(--night); }
+  .done-x {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(22, 26, 51, 0.12);
+    color: var(--night);
+    font-size: 1.4rem;
+    cursor: pointer;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { from { opacity: 0; transform: translate(-50%, -50%) scale(0.9); } to { opacity: 1; transform: translate(-50%, -50%); } }
+
+  /* Phones and small tablets: title bar above the map, place card slides up from the bottom */
   @media (max-width: 900px) {
     .world { height: calc(100svh - 7.5rem); min-height: 34rem; display: flex; flex-direction: column; }
     .viewport { position: relative; inset: auto; flex: 1; }
@@ -564,23 +707,25 @@ const places = [
     .waiting .opening { display: none; }
     .waiting .call { font-size: 3rem; }
     .place-card {
-      top: auto;
-      bottom: 0;
-      left: 0;
+      left: 0 !important;
       right: 0;
+      top: auto !important;
+      bottom: 0;
       width: auto;
       max-height: 60%;
-      transform: none;
+      overflow-y: auto;
       border-radius: 16px 16px 0 0;
       border-top: 3px solid var(--palm);
       padding: 1rem 1.1rem 1.1rem;
     }
+    .place-card.wait, .place-card.lost { opacity: 1; pointer-events: auto; }
+    .pointer { display: none; }
     .place img { max-height: 8.5rem; }
     .exploring .controls { opacity: 0; pointer-events: none; }
     .hint { display: none; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .dot::before { animation: none; }
+    .dot::before, .hint::before { animation: none; }
   }
 </style>
