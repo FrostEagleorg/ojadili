@@ -13,7 +13,7 @@ const ld = {
   '@context': 'https://schema.org',
   '@graph': [
     {
-      '@type': 'Book',
+      '@type': ['Book', 'Product'],
       '@id': 'https://ojadili.com/#book',
       name: 'Ojadili, Book One: The Back That Never Touched the Ground',
       alternateName: 'Ojadili',
@@ -29,7 +29,16 @@ const ld = {
       image: 'https://ojadili.com/images/cover.jpg',
       url: 'https://ojadili.com/',
       sameAs: [BOOK.paperback],
-      offers: { '@type': 'Offer', url: BOOK.paperback, availability: 'https://schema.org/InStock' },
+      offers: {
+        '@type': 'Offer',
+        url: BOOK.paperback,
+        price: BOOK.price,
+        priceCurrency: BOOK.currency,
+        availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: { '@type': 'Organization', name: 'Amazon Australia' },
+      },
+      brand: { '@type': 'Brand', name: 'Ojadili' },
     },
     {
       '@type': 'Person',
@@ -47,7 +56,7 @@ const ld = {
   ],
 };
 ---
-<Base dark seoTitle="Ojadili: An Igbo Folktale Graphic Novel for Kids | Book One" description="Ojadili, Book One: The Back That Never Touched the Ground. The Igbo folktale of the wrestler who fought his chi, retold as a full-colour graphic novel for ages 8 to 12.">
+<Base dark seoTitle="Ojadili Comic Book: An Igbo Folktale Graphic Novel for Kids" description="Ojadili, Book One: The Back That Never Touched the Ground. A full-colour comic book of the Igbo folktale of the wrestler who fought his chi, for ages 8 to 12. Buy the paperback on Amazon.">
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
   <MapHero />
 

@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import BuyButtons from '../components/BuyButtons.astro';
+import { BOOK, SITE } from '../config';
+
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': ['Book', 'Product'],
+  '@id': 'https://ojadili.com/#book',
+  name: 'Ojadili, Book One: The Back That Never Touched the Ground',
+  alternateName: ['Ojadili', 'Ojadili comic book'],
+  description: 'A full-colour comic book of the Igbo folktale of Ojadili, the wrestler who fought his chi. For ages 8 to 12.',
+  author: { '@type': 'Person', name: SITE.author, url: 'https://ojadili.com/story' },
+  isbn: BOOK.isbn,
+  gtin13: BOOK.isbn.replace(/-/g, ''),
+  bookFormat: 'https://schema.org/Paperback',
+  numberOfPages: 96,
+  inLanguage: 'en',
+  image: 'https://ojadili.com/images/cover.jpg',
+  url: 'https://ojadili.com/buy',
+  brand: { '@type': 'Brand', name: 'Ojadili' },
+  offers: {
+    '@type': 'Offer',
+    url: BOOK.paperback,
+    price: BOOK.price,
+    priceCurrency: BOOK.currency,
+    availability: 'https://schema.org/InStock',
+    itemCondition: 'https://schema.org/NewCondition',
+    seller: { '@type': 'Organization', name: 'Amazon Australia' },
+  },
+};
+---
+<Base
+  title="Buy the book"
+  seoTitle="Buy the Ojadili Comic Book: Paperback on Amazon"
+  description="Buy Ojadili, Book One: The Back That Never Touched the Ground, a full-colour Igbo folktale comic book for ages 8 to 12. Paperback on Amazon, ISBN 978-1-0643865-0-7."
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(ld)} />
+  <section class="section">
+    <div class="wrap buy-grid">
+      <figure class="cover">
+        <img src="/images/cover.jpg" width="1100" height="1618" alt="The cover of the Ojadili comic book, Book One: The Back That Never Touched the Ground" />
+      </figure>
+      <div class="prose">
+        <h1>Get the Ojadili comic book</h1>
+        <p class="sub">{BOOK.title}: {BOOK.subtitle}</p>
+        <p>
+          No one has ever thrown Ojadili. In nine villages his back has never touched the ground,
+          so he goes looking for someone who can, all the way into the land of spirits. A full-colour
+          comic book of the old Igbo folktale, for ages 8 to 12.
+        </p>
+        <BuyButtons />
+        <dl>
+          <div><dt>Format</dt><dd>{BOOK.trim}</dd></div>
+          <div><dt>Pages</dt><dd>96</dd></div>
+          <div><dt>Ages</dt><dd>{BOOK.ages}</dd></div>
+          <div><dt>ISBN</dt><dd>{BOOK.isbn}</dd></div>
+        </dl>
+        <p class="small">
+          Buying for a school, library or community group? Email{' '}
+          <a href={`mailto:${SITE.email}?subject=Ojadili%20order`}>{SITE.email}</a> for bulk orders.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .buy-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: center;
+  }
+  .cover { margin: 0; max-width: 24rem; }
+  .cover img { border-radius: 4px; box-shadow: 0 30px 60px -25px rgba(0, 0, 0, 0.5); }
+  h1 { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 0.3rem; }
+  .sub { font-style: italic; color: var(--muted); }
+  dl { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem 2rem; margin: 2rem 0 1.5rem; }
+  dt { font-size: 0.9rem; color: var(--muted); }
+  dd { margin: 0; font-weight: 600; }
+  .small { font-size: 0.95rem; color: var(--muted); }
+  @media (max-width: 760px) {
+    .buy-grid { grid-template-columns: 1fr; }
+    .cover { max-width: 16rem; }
+  }
+</style>
