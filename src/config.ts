@@ -17,8 +17,7 @@ export const BOOK = {
   isbn: '978-1-0643865-0-7',
   trim: '6 × 9 in paperback, full colour',
   ages: '8 to 12',
-  // TODO: confirm this matches the Amazon.com.au price.
-  price: '30.00',
+  price: '30.74',
   currency: 'AUD',
   // Leave kindle as '' to hide the button.
   paperback: 'https://www.amazon.com.au/dp/1064386504',
