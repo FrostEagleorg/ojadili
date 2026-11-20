@@ -23,3 +23,8 @@ export const BOOK = {
   paperback: 'https://www.amazon.com.au/dp/1064386504',
   kindle: '',
 };
+
+export const ANALYTICS = {
+  // Cloudflare Web Analytics token (free, no cookies). Paste it here to switch the counter on.
+  cloudflareToken: '',
+};
